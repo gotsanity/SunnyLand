@@ -281,4 +281,4 @@ limit_bottom = 240
 stream = ExtResource("25_o16sg")
 
 [node name="Slimer" parent="." instance=ExtResource("26_yfuda")]
-position = Vector2(128, 192)
+position = Vector2(768, 176)
