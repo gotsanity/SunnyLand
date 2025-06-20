@@ -36,4 +36,4 @@ func update_animations(direction):
 	if attacking:
 		animated_sprite_2d.play("attack")
 	else:
-		animated_sprite_2d.play("idle")
+		animated_sprite_2d.play("default")

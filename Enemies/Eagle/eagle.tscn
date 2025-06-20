@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://cad0e06g0b45v"]
+[gd_scene load_steps=11 format=3 uid="uid://cad0e06g0b45v"]
 
 [ext_resource type="Script" uid="uid://cxvbyppy6qd1l" path="res://Enemies/Eagle/eagle.gd" id="1_m0t87"]
 [ext_resource type="Texture2D" uid="uid://ccy0y70qbsene" path="res://Enemies/Eagle/eagle-attack.png" id="1_u4vq8"]
+[ext_resource type="Script" uid="uid://dlaub0dqcbxl7" path="res://Components/HurtBox.gd" id="3_st5e1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e8gwn"]
 atlas = ExtResource("1_u4vq8")
@@ -42,10 +43,15 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_m0t87"]
 radius = 17.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_mqfij"]
+radius = 17.1172
+
 [node name="Eagle" type="CharacterBody2D"]
 collision_layer = 0
 collision_mask = 3
 script = ExtResource("1_m0t87")
+SPEED = 60.0
+enable_flying = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_sm61u")
@@ -54,3 +60,10 @@ frame_progress = 0.990461
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_m0t87")
+
+[node name="HurtBox" type="Area2D" parent="."]
+script = ExtResource("3_st5e1")
+metadata/_custom_type_script = "uid://dlaub0dqcbxl7"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_mqfij")

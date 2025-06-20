@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://0n8tfusaiur2"]
+[gd_scene load_steps=28 format=3 uid="uid://0n8tfusaiur2"]
 
 [ext_resource type="PackedScene" uid="uid://bcsnyw4t6pnw2" path="res://World/parallax_background.tscn" id="1_2dejq"]
 [ext_resource type="PackedScene" uid="uid://bapvy71043313" path="res://Player/player.tscn" id="1_vr7hw"]
@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://cad0e06g0b45v" path="res://Enemies/Eagle/eagle.tscn" id="21_25vrf"]
 [ext_resource type="PackedScene" uid="uid://bttsjij0ss8q0" path="res://Enemies/Frog/frog.tscn" id="22_8sn40"]
 [ext_resource type="PackedScene" uid="uid://cewt171s35pmt" path="res://Pickups/Gem/gem.tscn" id="22_fohr8"]
+[ext_resource type="PackedScene" uid="uid://dre87iofqpfrk" path="res://Enemies/BaseEnemy/BaseEnemy.tscn" id="22_i8dl0"]
 [ext_resource type="PackedScene" uid="uid://c6diiunn70psp" path="res://Pickups/Cheery/cherry.tscn" id="24_o7pso"]
 [ext_resource type="AudioStream" uid="uid://dinseoiw5ecvq" path="res://Music/walkyandtalky.ogg" id="25_o16sg"]
 [ext_resource type="PackedScene" uid="uid://dxjq0j1grlgou" path="res://Enemies/Slimer/slimer.tscn" id="26_yfuda"]
@@ -180,7 +181,7 @@ position = Vector2(1144, 203)
 position = Vector2(2914, 178)
 
 [node name="Eagle" parent="Enemies" instance=ExtResource("21_25vrf")]
-position = Vector2(319, 138)
+position = Vector2(97, 94)
 
 [node name="Eagle2" parent="Enemies" instance=ExtResource("21_25vrf")]
 position = Vector2(671, 70)
@@ -199,6 +200,9 @@ position = Vector2(1493, 196)
 
 [node name="Frog3" parent="Enemies" instance=ExtResource("22_8sn40")]
 position = Vector2(2697, 211)
+
+[node name="BaseEnemy" parent="Enemies" instance=ExtResource("22_i8dl0")]
+position = Vector2(322, 186)
 
 [node name="Pickups" type="Node2D" parent="."]
 
@@ -269,7 +273,7 @@ position = Vector2(3352, 136)
 position = Vector2(960, 176)
 
 [node name="Player" parent="." instance=ExtResource("1_vr7hw")]
-position = Vector2(62, 180)
+position = Vector2(152, 176)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 limit_left = 0

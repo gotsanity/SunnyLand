@@ -1,11 +1,9 @@
-[gd_scene load_steps=27 format=3 uid="uid://bapvy71043313"]
+[gd_scene load_steps=24 format=3 uid="uid://bapvy71043313"]
 
 [ext_resource type="Script" uid="uid://3tk2dwh0pq4g" path="res://Player/player.gd" id="1_1akqa"]
 [ext_resource type="Texture2D" uid="uid://bt8gb54hjkhl1" path="res://Player/player.png" id="2_vtor2"]
 [ext_resource type="PackedScene" uid="uid://bjlwfbex7gcxh" path="res://Components/Hitbox.tscn" id="3_gwnis"]
 [ext_resource type="PackedScene" uid="uid://cg114sr6xui66" path="res://Components/HealthComponent.tscn" id="4_k53q1"]
-[ext_resource type="Script" uid="uid://dlaub0dqcbxl7" path="res://Components/HurtBox.gd" id="5_k53q1"]
-[ext_resource type="Script" uid="uid://c6eti274sbw7e" path="res://Components/Attack.gd" id="6_fhl08"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ok28f"]
 
@@ -155,10 +153,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwnis"]
-size = Vector2(20, 20.0002)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fhl08"]
-size = Vector2(14, 3.5)
+size = Vector2(20, 4.00023)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
@@ -173,26 +168,12 @@ sprite_frames = SubResource("SpriteFrames_f4wda")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="Hitbox" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("3_gwnis")]
-sprite = NodePath("../AnimatedSprite2D")
-hit_react_length = 0.2
+[node name="Hitbox" parent="." instance=ExtResource("3_gwnis")]
+use_health_component = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(-0.00184234, -0.000114918)
-rotation = 0.00468877
+position = Vector2(2.652e-08, 7.99988)
+rotation = -0.000230296
 shape = SubResource("RectangleShape2D_gwnis")
 
 [node name="HealthComponent" parent="." instance=ExtResource("4_k53q1")]
-
-[node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("attack")]
-script = ExtResource("5_k53q1")
-attack = NodePath("StompAttack")
-metadata/_custom_type_script = "uid://dlaub0dqcbxl7"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(0, 11.75)
-shape = SubResource("RectangleShape2D_fhl08")
-
-[node name="StompAttack" type="Node" parent="HurtBox"]
-script = ExtResource("6_fhl08")
-attack_damage = 10.0

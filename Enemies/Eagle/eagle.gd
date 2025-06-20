@@ -1,26 +1,23 @@
-extends CharacterBody2D
+extends BaseEnemy
 
-const SPEED = 60.0
-
-var direction = -1
 var attacking = false
 
 @onready var animated_sprite_2d = $AnimatedSprite2D
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+func _ready():
+	super()
+	SPEED = 60
 
-
-func _physics_process(delta):
-	# fly direction
-	if !is_on_floor() and !is_on_wall():
-		velocity.x = SPEED * direction
-	elif is_on_wall_only():
-		direction *= -1
-		velocity.x = SPEED * direction
-	
-	move_and_slide()
-	update_animations(direction)
+#func _physics_process(delta):
+	## fly direction
+	#if !is_on_floor() and !is_on_wall():
+		#velocity.x = SPEED * direction
+	#elif is_on_wall_only():
+		#direction *= -1
+		#velocity.x = SPEED * direction
+	#
+	#move_and_slide()
+	#update_animations(direction)
 
 
 func update_animations(direction):
@@ -30,4 +27,4 @@ func update_animations(direction):
 	if attacking:
 		animated_sprite_2d.play("attack")
 	else:
-		animated_sprite_2d.play("idle")
+		animated_sprite_2d.play("default")
