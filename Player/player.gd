@@ -1,16 +1,19 @@
 extends CharacterBody2D
+class_name Player
 
 
 const SPEED = 110.0
 const JUMP_VELOCITY = -300.0
 const JUMP_BONUS = -200.0
 const SPEED_BONUS = 110.0
-
+var can_move = true
 var crouching = false
 var jumpBonus := -0.0
 var crouchBonus = 1
 var crouchTimer = Timer.new()
 var respawn_position: Transform2D
+var team := "player"
+var is_dead = false
 @export var respawn_timer_length := 3.0
 
 var was_in_air := false
@@ -53,37 +56,39 @@ func _physics_process(delta):
 	if dying and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
-	# Handle Jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY + jumpBonus
+	if (can_move):
+		# Handle Jump.
+		if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+			velocity.y = JUMP_VELOCITY + jumpBonus
 
-	# Handle Crouch timer
-	if Input.is_action_just_pressed("ui_down") and is_on_floor():
-		crouchTimer.start()
-	
-	# Handle continuous crouching
-	if Input.is_action_pressed("ui_down") and is_on_floor():
-		crouching = true
-	
-	# Crouching released, stop timer
-	if Input.is_action_just_released("ui_down"):
-		crouching = false
-		if crouchTimer.wait_time > 0:
-			crouchTimer.stop()
+		# Handle Crouch timer
+		if Input.is_action_just_pressed("ui_down") and is_on_floor():
+			crouchTimer.start()
+		
+		# Handle continuous crouching
+		if Input.is_action_pressed("ui_down") and is_on_floor():
+			crouching = true
+		
+		# Crouching released, stop timer
+		if Input.is_action_just_released("ui_down"):
+			crouching = false
+			if crouchTimer.wait_time > 0:
+				crouchTimer.stop()
 
-	# Get the input direction (input_axis) and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_axis = Input.get_axis("ui_left", "ui_right")
-	if input_axis:
-		velocity.x = input_axis * (SPEED + crouchBonus)
-		crouchBonus = move_toward(crouchBonus, 0, 1)
-	else:
-		crouchBonus = move_toward(crouchBonus, 0, 1)
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-	
-	jumpBonus = move_toward(jumpBonus, 0, 1)
-	move_and_slide()
-	update_animations(input_axis)
+		# Get the input direction (input_axis) and handle the movement/deceleration.
+		# As good practice, you should replace UI actions with custom gameplay actions.
+		var input_axis = Input.get_axis("ui_left", "ui_right")
+		if input_axis:
+			velocity.x = input_axis * (SPEED + crouchBonus)
+			crouchBonus = move_toward(crouchBonus, 0, 1)
+		else:
+			crouchBonus = move_toward(crouchBonus, 0, 1)
+			velocity.x = move_toward(velocity.x, 0, SPEED)
+		
+		jumpBonus = move_toward(jumpBonus, 0, 1)
+		
+		move_and_slide()
+		update_animations(input_axis)
 	
 	# Check if dying is finished (landed). Then trigger on death
 	# finished.
@@ -123,26 +128,18 @@ func die():
 	print("Player has died")
 	dying = false
 	was_in_air = false
-	start_respawn()
-
-
-# This function hides the player and disables collision. After
-# a time it respawns the player at the last known position.
-func start_respawn():
-	hide()
-	for shape in get_children():
-		if shape is CollisionShape2D:
-			shape.disabled = true
-	await get_tree().create_timer(respawn_timer_length).timeout
 	respawn()
 
 
 # This function is called when the player is respawned.
-# It enables all collisions, shows the sprite, and sets the
-# position to the last set respawn point
+# It disables the player for a short time and then reenables it
+# and sets the position to the last set respawn point
 func respawn():
-	for shape in get_children():
-		if shape is CollisionShape2D:
-			shape.disabled = false
-	show()
-	transform = respawn_position
+	self.visible = false
+	can_move = false
+	is_dead = true
+	await get_tree().create_timer(respawn_timer_length).timeout
+	self.global_position = respawn_position.get_origin()
+	self.visible = true
+	can_move = true
+	is_dead = false

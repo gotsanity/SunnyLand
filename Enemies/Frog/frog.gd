@@ -1,15 +1,4 @@
-extends CharacterBody2D
-
-
-const SPEED = 80.0
-const JUMP_VELOCITY = -400.0
-
-var direction = 1
-var state = "idle"
-
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-
+extends BaseEnemy
 
 func _physics_process(delta):
 	
@@ -35,8 +24,6 @@ func _physics_process(delta):
 	
 func jump():
 	velocity.y = JUMP_VELOCITY
-	
-	
 
 
 func _on_timer_timeout():

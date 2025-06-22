@@ -1,11 +1,13 @@
-[gd_scene load_steps=21 format=3 uid="uid://dxjq0j1grlgou"]
+[gd_scene load_steps=26 format=3 uid="uid://dxjq0j1grlgou"]
 
 [ext_resource type="Texture2D" uid="uid://brdct8m6pi44s" path="res://Enemies/Slimer/slimer.png" id="1_3keq5"]
-[ext_resource type="Script" uid="uid://b3k8mfawxqvjt" path="res://Enemies/Slimer/slimer.gd" id="1_a0mjg"]
+[ext_resource type="Script" uid="uid://b10kg6kb856xr" path="res://Enemies/BaseEnemy/BaseEnemy.gd" id="1_a0mjg"]
 [ext_resource type="Texture2D" uid="uid://c4ipf2d046mbs" path="res://Enemies/Slimer/slimer-idle.png" id="2_a0mjg"]
+[ext_resource type="Script" uid="uid://dssf1kthw6mtj" path="res://Components/Hitbox.gd" id="4_4flgy"]
+[ext_resource type="Script" uid="uid://dlaub0dqcbxl7" path="res://Components/Hurtbox.gd" id="5_s148r"]
+[ext_resource type="Script" uid="uid://d01t5w5uthwj0" path="res://Components/HealthComponent.gd" id="6_s148r"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3keq5"]
-size = Vector2(23, 20)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s148r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d7are"]
 atlas = ExtResource("1_3keq5")
@@ -91,7 +93,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vckly")
 }],
-"loop": false,
+"loop": true,
 "name": &"attack",
 "speed": 6.0
 }, {
@@ -125,18 +127,44 @@ animations = [{
 "speed": 7.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vmcqv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nh86k"]
+
 [node name="Slimer" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_a0mjg")
+SPEED = 30.0
+JUMP_VELOCITY = -300.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, -11)
-shape = SubResource("RectangleShape2D_3keq5")
+shape = SubResource("RectangleShape2D_s148r")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -20)
+position = Vector2(0, -9)
 sprite_frames = SubResource("SpriteFrames_4x7ef")
 animation = &"attack"
 autoplay = "default"
-frame = 6
-frame_progress = 1.0
+frame_progress = 0.722124
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
+
+[node name="Hitbox" type="Area2D" parent="."]
+script = ExtResource("4_4flgy")
+metadata/_custom_type_script = "uid://dssf1kthw6mtj"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_vmcqv")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+script = ExtResource("5_s148r")
+metadata/_custom_type_script = "uid://dlaub0dqcbxl7"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_nh86k")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("6_s148r")
+metadata/_custom_type_script = "uid://d01t5w5uthwj0"

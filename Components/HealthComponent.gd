@@ -23,4 +23,5 @@ func damage(attack: Attack):
 	health_changed.emit(health)
 	
 	if health <= 0:
+		owner.is_dead = true
 		died.emit() 

@@ -1,8 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://cad0e06g0b45v"]
+[gd_scene load_steps=14 format=3 uid="uid://cad0e06g0b45v"]
 
 [ext_resource type="Script" uid="uid://cxvbyppy6qd1l" path="res://Enemies/Eagle/eagle.gd" id="1_m0t87"]
 [ext_resource type="Texture2D" uid="uid://ccy0y70qbsene" path="res://Enemies/Eagle/eagle-attack.png" id="1_u4vq8"]
-[ext_resource type="Script" uid="uid://dlaub0dqcbxl7" path="res://Components/HurtBox.gd" id="3_st5e1"]
+[ext_resource type="Script" uid="uid://dlaub0dqcbxl7" path="res://Components/Hurtbox.gd" id="3_st5e1"]
+[ext_resource type="Script" uid="uid://d01t5w5uthwj0" path="res://Components/HealthComponent.gd" id="4_mqfij"]
+[ext_resource type="Script" uid="uid://dssf1kthw6mtj" path="res://Components/Hitbox.gd" id="5_5fcp5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e8gwn"]
 atlas = ExtResource("1_u4vq8")
@@ -40,11 +42,14 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_m0t87"]
-radius = 17.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5fcp5"]
+size = Vector2(27, 16)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_mqfij"]
-radius = 17.1172
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hksar"]
+size = Vector2(27, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g5umb"]
+size = Vector2(25, 4)
 
 [node name="Eagle" type="CharacterBody2D"]
 collision_layer = 0
@@ -56,14 +61,31 @@ enable_flying = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_sm61u")
 autoplay = "default"
-frame_progress = 0.990461
+frame_progress = 0.972392
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_m0t87")
+position = Vector2(-3.5, 6)
+shape = SubResource("RectangleShape2D_5fcp5")
 
-[node name="HurtBox" type="Area2D" parent="."]
+[node name="Hurtbox" type="Area2D" parent="."]
 script = ExtResource("3_st5e1")
 metadata/_custom_type_script = "uid://dlaub0dqcbxl7"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-shape = SubResource("CircleShape2D_mqfij")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-3.5, 6.5)
+shape = SubResource("RectangleShape2D_hksar")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("4_mqfij")
+metadata/_custom_type_script = "uid://d01t5w5uthwj0"
+
+[node name="Hitbox" type="Area2D" parent="."]
+script = ExtResource("5_5fcp5")
+metadata/_custom_type_script = "uid://dssf1kthw6mtj"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-3.5, -1)
+shape = SubResource("RectangleShape2D_g5umb")

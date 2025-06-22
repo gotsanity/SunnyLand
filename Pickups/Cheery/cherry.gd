@@ -9,6 +9,6 @@ func spawn_feedback():
 	new_scene_instance.global_position = global_position
 
 
-func _on_body_entered(body):
+func _on_body_entered(_body):
 	spawn_feedback()
 	queue_free()

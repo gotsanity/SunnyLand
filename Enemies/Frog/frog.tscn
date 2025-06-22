@@ -1,8 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://bttsjij0ss8q0"]
+[gd_scene load_steps=17 format=3 uid="uid://bttsjij0ss8q0"]
 
 [ext_resource type="Script" uid="uid://io14nk62dg1q" path="res://Enemies/Frog/frog.gd" id="1_5fl31"]
 [ext_resource type="Texture2D" uid="uid://m7jx3eb2ey3e" path="res://Enemies/Frog/frog-jump.png" id="1_ld22g"]
 [ext_resource type="Texture2D" uid="uid://dbaymly2fej4i" path="res://Enemies/Frog/frog-idle.png" id="1_x3351"]
+[ext_resource type="Script" uid="uid://d01t5w5uthwj0" path="res://Components/HealthComponent.gd" id="4_y3bwy"]
+[ext_resource type="Script" uid="uid://dlaub0dqcbxl7" path="res://Components/Hurtbox.gd" id="5_bwicp"]
+[ext_resource type="Script" uid="uid://dssf1kthw6mtj" path="res://Components/Hitbox.gd" id="6_tsaag"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4c8v2"]
 atlas = ExtResource("1_ld22g")
@@ -64,23 +67,45 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0kx4j"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y3bwy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bwicp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tsaag"]
 
 [node name="Frog" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_5fl31")
+SPEED = 80.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_a0eiy")
-animation = &"idle"
+animation = &"jump"
 autoplay = "idle"
+frame_progress = 0.504321
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_0kx4j")
+shape = SubResource("RectangleShape2D_y3bwy")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.0
 autostart = true
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("4_y3bwy")
+metadata/_custom_type_script = "uid://d01t5w5uthwj0"
+
+[node name="Hurtbox" type="Area2D" parent="."]
+script = ExtResource("5_bwicp")
+metadata/_custom_type_script = "uid://dlaub0dqcbxl7"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_bwicp")
+
+[node name="Hitbox" type="Area2D" parent="."]
+script = ExtResource("6_tsaag")
+metadata/_custom_type_script = "uid://dssf1kthw6mtj"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_tsaag")

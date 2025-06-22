@@ -7,6 +7,8 @@ var health_component: HealthComponent = null
 @export var sprite: Node2D
 @export var hit_react_length: float = 0.1
 
+@onready var collision_shape_2d = $CollisionShape2D
+
 func _ready():
 	health_component = get_parent().get_node("HealthComponent")
 	sprite = get_parent().get_node("AnimatedSprite2D")
@@ -16,6 +18,12 @@ func _ready():
 	
 	if not health_component:
 		printerr("Health Component missing from " + get_parent().name + ", please add one")
+	
+	if not collision_shape_2d:
+		printerr(get_parent().name + " needs a CollisionShape2D added to it's Hitbox Component")
+	else:
+		if not collision_shape_2d.shape:
+			printerr(get_parent().name + " needs a collision shape selected for it's Hitbox Component")
 	
 	# Set collisions
 	collision_layer = 0
@@ -32,13 +40,25 @@ func damage(attack: Attack):
 
 
 func _on_area_entered(area):
-	if area is HurtBox and area.attack.source != owner:
-		damage(area.attack)
-		area.on_hit()
-		hit_react.emit(area.attack)
+	if area is Hurtbox:
+		if area.attack.team == owner.team:
+			return
+		if owner.is_dead || area.owner.is_dead:
+			return
+		
+		print("Attacker: ", area.owner.name, " Attacker Y Pos ", str(area.owner.global_position.y), " Target: ", self.owner.name, " Target Y Pos ", str(owner.global_position.y))
+		if area.owner is Player:
+			if int(area.owner.global_position.y + 2) < int(owner.global_position.y):
+				damage(area.attack)
+				area.on_hit()
+				hit_react.emit(area.attack)
+		else:
+			damage(area.attack)
+			area.on_hit()
+			hit_react.emit(area.attack)
 
 
-func on_hit_react(attack: Attack):
+func on_hit_react(_attack: Attack):
 	if sprite:
 		# Flash white
 		sprite.modulate = Color(10, 10, 10, 10)

@@ -1,7 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://hvw2tjk7rxpp"]
+[gd_scene load_steps=16 format=3 uid="uid://hvw2tjk7rxpp"]
 
 [ext_resource type="Script" uid="uid://bp1q5q0lha15n" path="res://Enemies/Oposum/oposum.gd" id="1_3m2ad"]
 [ext_resource type="Texture2D" uid="uid://b3qsnu86qjb8v" path="res://Enemies/Oposum/oposum.png" id="1_dpmf7"]
+[ext_resource type="Script" uid="uid://d01t5w5uthwj0" path="res://Components/HealthComponent.gd" id="3_qqtis"]
+[ext_resource type="Script" uid="uid://dlaub0dqcbxl7" path="res://Components/Hurtbox.gd" id="4_jyb7i"]
+[ext_resource type="Script" uid="uid://dssf1kthw6mtj" path="res://Components/Hitbox.gd" id="5_xkgqn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ocnlb"]
 atlas = ExtResource("1_dpmf7")
@@ -53,7 +56,14 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_igoil"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qqtis"]
+size = Vector2(26, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyb7i"]
+size = Vector2(26, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xkgqn"]
+size = Vector2(24, 4)
 
 [node name="Oposum" type="CharacterBody2D"]
 collision_layer = 0
@@ -66,11 +76,29 @@ autoplay = "new_animation"
 frame_progress = 0.633067
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 4)
-shape = SubResource("CircleShape2D_igoil")
+position = Vector2(-3, 5)
+shape = SubResource("RectangleShape2D_qqtis")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.0
 autostart = true
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_qqtis")
+metadata/_custom_type_script = "uid://d01t5w5uthwj0"
+
+[node name="Hurtbox" type="Area2D" parent="."]
+script = ExtResource("4_jyb7i")
+metadata/_custom_type_script = "uid://dlaub0dqcbxl7"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-3, 5)
+shape = SubResource("RectangleShape2D_jyb7i")
+
+[node name="Hitbox" type="Area2D" parent="."]
+script = ExtResource("5_xkgqn")
+metadata/_custom_type_script = "uid://dssf1kthw6mtj"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-3, -3)
+shape = SubResource("RectangleShape2D_xkgqn")

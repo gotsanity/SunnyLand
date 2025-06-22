@@ -10,6 +10,6 @@ func spawn_feedback():
 
 
 
-func _on_body_entered(body):
+func _on_body_entered(_body):
 	spawn_feedback()
 	queue_free()
