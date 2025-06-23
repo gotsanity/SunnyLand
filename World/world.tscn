@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://0n8tfusaiur2"]
+[gd_scene load_steps=28 format=3 uid="uid://0n8tfusaiur2"]
 
 [ext_resource type="PackedScene" uid="uid://bcsnyw4t6pnw2" path="res://World/parallax_background.tscn" id="1_2dejq"]
 [ext_resource type="PackedScene" uid="uid://bapvy71043313" path="res://Player/player.tscn" id="1_vr7hw"]
@@ -26,6 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://c6diiunn70psp" path="res://Pickups/Cheery/cherry.tscn" id="24_o7pso"]
 [ext_resource type="AudioStream" uid="uid://dinseoiw5ecvq" path="res://Music/walkyandtalky.ogg" id="25_o16sg"]
 [ext_resource type="PackedScene" uid="uid://dxjq0j1grlgou" path="res://Enemies/Slimer/slimer.tscn" id="26_yfuda"]
+[ext_resource type="PackedScene" uid="uid://b8mm60bh7kpqr" path="res://Components/killbox.tscn" id="27_i8dl0"]
 
 [node name="World" type="Node2D"]
 
@@ -188,6 +189,9 @@ position = Vector2(1493, 196)
 [node name="Frog3" parent="Enemies" instance=ExtResource("22_8sn40")]
 position = Vector2(2697, 211)
 
+[node name="Oposum" parent="Enemies" instance=ExtResource("20_x2wnd")]
+position = Vector2(548, 164)
+
 [node name="Pickups" type="Node2D" parent="."]
 
 [node name="Gem" parent="Pickups" instance=ExtResource("22_fohr8")]
@@ -271,5 +275,10 @@ stream = ExtResource("25_o16sg")
 [node name="Slimer" parent="." instance=ExtResource("26_yfuda")]
 position = Vector2(355, 195)
 
-[node name="Oposum" parent="." instance=ExtResource("20_x2wnd")]
-position = Vector2(548, 164)
+[node name="Killbox" parent="." instance=ExtResource("27_i8dl0")]
+position = Vector2(291, 266)
+
+[node name="CollisionShape2D" parent="Killbox" index="0"]
+position = Vector2(-213, -114)
+
+[editable path="Killbox"]
