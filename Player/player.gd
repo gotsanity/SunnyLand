@@ -116,6 +116,7 @@ func respawn():
 	is_dead = true
 	await get_tree().create_timer(respawn_timer_length).timeout
 	self.global_position = respawn_position.get_origin()
+	velocity = Vector2.ZERO
 	self.visible = true
 	can_move = true
 	is_dead = false

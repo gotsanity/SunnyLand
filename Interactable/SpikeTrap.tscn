@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://6273s2of4qv8"]
+
+[ext_resource type="Texture2D" uid="uid://18vk7qekbqov" path="res://World/Props/spikes.png" id="1_2jo8d"]
+[ext_resource type="Script" uid="uid://co177w1l2awj2" path="res://Interactable/spike_trap.gd" id="1_ersei"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vqqay"]
+
+[node name="SpikeTrap" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_ersei")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_vqqay")
+debug_color = Color(1, 0.0110432, 0.0245465, 0.42)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_2jo8d")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
