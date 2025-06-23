@@ -194,3 +194,6 @@ shape = SubResource("RectangleShape2D_fhl08")
 [node name="StompAttack" type="Node" parent="HurtBox"]
 script = ExtResource("6_fhl08")
 attack_damage = 10.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_smoothed = true

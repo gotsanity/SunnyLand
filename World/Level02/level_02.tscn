@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dlcm8ubd3yr3f"]
+
+[ext_resource type="TileSet" uid="uid://dgp60fa4r1vdi" path="res://World/world-tileset.tres" id="1_pvvak"]
+[ext_resource type="PackedScene" uid="uid://bapvy71043313" path="res://Player/player.tscn" id="2_do851"]
+
+[node name="Level02" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_pvvak")
+format = 2
+layer_0/tile_data = PackedInt32Array(458757, 1114112, 14, 458758, 1114112, 14, 458759, 1114112, 14, 458760, 1114112, 14, 458761, 1114112, 14, 458762, 1114112, 14, 458763, 1114112, 14, 458764, 1114112, 14)
+
+[node name="Player" parent="." instance=ExtResource("2_do851")]
+position = Vector2(142, 87)

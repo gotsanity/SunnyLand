@@ -1,9 +1,11 @@
 extends Area2D
 
+@export var next_scene := ""
+
 func _ready():
 	collision_mask = 3
-	pass
 
 func _on_body_entered(body):
+	print("triggered")
 	if body is Player:
-		body.respawn()
+		get_tree().change_scene_to_file(next_scene)
