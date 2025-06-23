@@ -167,6 +167,18 @@ texture = ExtResource("17_06f2i")
 
 [node name="Enemies" type="Node2D" parent="."]
 
+[node name="Oposum" parent="Enemies" instance=ExtResource("20_x2wnd")]
+position = Vector2(2413, 192)
+
+[node name="Oposum3" parent="Enemies" instance=ExtResource("20_x2wnd")]
+position = Vector2(2031, 159)
+
+[node name="Oposum4" parent="Enemies" instance=ExtResource("20_x2wnd")]
+position = Vector2(1144, 203)
+
+[node name="Oposum2" parent="Enemies" instance=ExtResource("20_x2wnd")]
+position = Vector2(2914, 178)
+
 [node name="Eagle" parent="Enemies" instance=ExtResource("21_25vrf")]
 position = Vector2(314, 99)
 
@@ -180,7 +192,7 @@ position = Vector2(1109, 70)
 position = Vector2(3362, 69)
 
 [node name="Frog" parent="Enemies" instance=ExtResource("22_8sn40")]
-position = Vector2(228, 188)
+position = Vector2(836, 180)
 
 [node name="Frog2" parent="Enemies" instance=ExtResource("22_8sn40")]
 position = Vector2(1493, 196)
@@ -256,7 +268,7 @@ position = Vector2(3352, 136)
 [node name="Gem3" parent="Pickups" instance=ExtResource("22_fohr8")]
 position = Vector2(960, 176)
 
-[node name="Player" parent="." groups=["Player"] instance=ExtResource("1_vr7hw")]
+[node name="Player" parent="." instance=ExtResource("1_vr7hw")]
 position = Vector2(92, 182)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -269,7 +281,4 @@ limit_bottom = 240
 stream = ExtResource("25_o16sg")
 
 [node name="Slimer" parent="." instance=ExtResource("26_yfuda")]
-position = Vector2(355, 195)
-
-[node name="Oposum" parent="." instance=ExtResource("20_x2wnd")]
-position = Vector2(548, 164)
+position = Vector2(364, 195)

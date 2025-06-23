@@ -46,12 +46,12 @@ func _on_area_entered(area):
 		if owner.is_dead || area.owner.is_dead:
 			return
 		
-		print("Attacker: ", area.owner.name, " Attacker Y Pos ", str(area.owner.global_position.y), " Target: ", self.owner.name, " Target Y Pos ", str(owner.global_position.y))
 		if area.owner is Player:
 			if int(area.owner.global_position.y + 2) < int(owner.global_position.y):
 				damage(area.attack)
 				area.on_hit()
 				hit_react.emit(area.attack)
+				area.owner.bounce_after_stomp()
 		else:
 			damage(area.attack)
 			area.on_hit()
