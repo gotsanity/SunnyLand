@@ -29,6 +29,9 @@ func Physics_Update(delta: float):
 	elif direction.length() > follow_max_distance:
 		Transitioned.emit(self, "EnemyIdle")
 	else:
-		enemy.velocity = direction.normalized() * enemy.SPEED
+		if not enemy.enable_flying:
+			enemy.velocity.x = direction.normalized().x * enemy.SPEED
+		else:
+			enemy.velocity = direction.normalized() * enemy.SPEED
 	
 	enemy.move_and_slide()
