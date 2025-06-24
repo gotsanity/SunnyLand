@@ -27,6 +27,10 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @export var enable_flying = false
 
 func _ready():
+	collision_layer = 0
+	set_collision_mask_value(1, true)
+	set_collision_mask_value(2, true)
+	
 	initial_position = global_position
 	if isLoaded(health_component, "HealthComponent"):
 		health_component.died.connect(on_death)
