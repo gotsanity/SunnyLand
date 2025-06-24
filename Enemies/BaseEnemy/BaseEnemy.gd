@@ -12,6 +12,8 @@ class_name BaseEnemy
 @onready var state_machine = $StateMachine
 @onready var initial_state = $StateMachine/EnemyIdle
 
+@export var flip_anims = false
+
 var direction := 1.0
 var team := "enemy"
 var is_dead := false
@@ -55,7 +57,9 @@ func _physics_process(delta):
 
 func update_animations():
 	# change sprite direction
-	if direction > 0:
+	if flip_anims and direction < 0:
+		animated_sprite_2d.flip_h = true
+	elif not flip_anims and direction > 0:
 		animated_sprite_2d.flip_h = true
 	else:
 		animated_sprite_2d.flip_h = false
