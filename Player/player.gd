@@ -6,6 +6,11 @@ class_name Player
 @export var JUMP_VELOCITY = -300.0
 @export var BOUNCE_HEIGHT = -300.0
 
+@export var ranged_attack: Attack
+@export var bullet = preload("res://Interactable/fireball/fireball.tscn")
+@export var bullet_point: Node2D
+@export var bullet_impact = preload("res://Interactable/fireball/fireball_explosion.tscn")
+
 var can_move = true
 var crouching = false
 
@@ -50,6 +55,9 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 			velocity.y = JUMP_VELOCITY
 
+		if Input.is_action_just_pressed("shoot"):
+			shoot()
+
 		# Get the input direction (input_axis) and handle the movement/deceleration.
 		# As good practice, you should replace UI actions with custom gameplay actions.
 		var input_axis = Input.get_axis("ui_left", "ui_right")
@@ -87,6 +95,19 @@ func update_animations(input_axis):
 		animated_sprite_2d.play("jump")
 	elif was_in_air and dying:
 		animated_sprite_2d.play("death")
+
+
+# Spawns a fireball at a point on the player
+func shoot():
+	var mouse_position = get_global_mouse_position()
+	var shot = bullet.instantiate()
+	shot.attack = ranged_attack
+	shot.direction = bullet_point.global_position.direction_to(mouse_position).normalized()
+	shot.pos = bullet_point.global_position
+	shot.target = mouse_position
+	shot.explosion = bullet_impact
+	get_tree().root.add_child(shot)
+	pass
 
 
 # Signal handler that triggers on death

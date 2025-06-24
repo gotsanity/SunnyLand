@@ -92,7 +92,7 @@ animations = [{
 }]
 
 [node name="FireImp" type="CharacterBody2D" node_paths=PackedStringArray("attack")]
-collision_layer = 0
+collision_layer = 3
 script = ExtResource("1_xmy0k")
 attack = NodePath("StateMachine/EnemyRangedAttack")
 flip_anims = true

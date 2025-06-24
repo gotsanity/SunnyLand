@@ -1,6 +1,7 @@
-[gd_scene load_steps=27 format=3 uid="uid://bapvy71043313"]
+[gd_scene load_steps=28 format=3 uid="uid://bapvy71043313"]
 
 [ext_resource type="Script" uid="uid://3tk2dwh0pq4g" path="res://Player/player.gd" id="1_1akqa"]
+[ext_resource type="Resource" uid="uid://ci70u38u0a65m" path="res://Components/Attacks/player_fireball.tres" id="2_vtle1"]
 [ext_resource type="Texture2D" uid="uid://bt8gb54hjkhl1" path="res://Player/player.png" id="2_vtor2"]
 [ext_resource type="PackedScene" uid="uid://bjlwfbex7gcxh" path="res://Components/Hitbox.tscn" id="3_gwnis"]
 [ext_resource type="PackedScene" uid="uid://cg114sr6xui66" path="res://Components/HealthComponent.tscn" id="4_k53q1"]
@@ -159,9 +160,11 @@ size = Vector2(20, 20.0002)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fhl08"]
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("bullet_point")]
 collision_layer = 2
 script = ExtResource("1_1akqa")
+ranged_attack = ExtResource("2_vtle1")
+bullet_point = NodePath("BulletPoint")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ok28f")
@@ -181,8 +184,9 @@ position = Vector2(-0.00184234, -0.000114918)
 rotation = 0.00468877
 shape = SubResource("RectangleShape2D_gwnis")
 
-[node name="HealthComponent" parent="." instance=ExtResource("4_k53q1")]
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("hitbox") instance=ExtResource("4_k53q1")]
 max_health = 10.0
+hitbox = NodePath("../Hitbox")
 
 [node name="HurtBox" type="Area2D" parent="."]
 script = ExtResource("5_k53q1")
@@ -194,3 +198,6 @@ shape = SubResource("RectangleShape2D_fhl08")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 limit_smoothed = true
+
+[node name="BulletPoint" type="Node2D" parent="."]
+position = Vector2(9, 0)
