@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="SunnyLand"
-run/main_scene="res://World/Level01/level_01.tscn"
+run/main_scene="uid://dlcm8ubd3yr3f"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -23,6 +23,7 @@ window/size/mode=2
 window/size/window_width_override=2880
 window/size/window_height_override=1920
 window/stretch/mode="canvas_items"
+window/main_scene="res://World/Level01/level_01.tscn"
 
 [editor_plugins]
 

@@ -1,9 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://hvw2tjk7rxpp"]
+[gd_scene load_steps=21 format=3 uid="uid://hvw2tjk7rxpp"]
 
 [ext_resource type="Texture2D" uid="uid://b3qsnu86qjb8v" path="res://Enemies/Oposum/oposum.png" id="1_dpmf7"]
 [ext_resource type="Script" uid="uid://b10kg6kb856xr" path="res://Enemies/BaseEnemy/BaseEnemy.gd" id="1_qqtis"]
 [ext_resource type="Script" uid="uid://d01t5w5uthwj0" path="res://Components/HealthComponent.gd" id="3_qqtis"]
 [ext_resource type="Script" uid="uid://dlaub0dqcbxl7" path="res://Components/Hurtbox.gd" id="4_jyb7i"]
+[ext_resource type="Resource" uid="uid://dun7objvqcnhx" path="res://Components/Attacks/smallhit.tres" id="5_jjb3m"]
 [ext_resource type="Script" uid="uid://dssf1kthw6mtj" path="res://Components/Hitbox.gd" id="5_xkgqn"]
 [ext_resource type="Script" uid="uid://dxiprnvw4yo2s" path="res://Components/State Machine.gd" id="6_jyb7i"]
 [ext_resource type="Script" uid="uid://bvk8spgb2x173" path="res://Components/States/Enemy/EnemyIdle.gd" id="7_xkgqn"]
@@ -113,6 +114,7 @@ metadata/_custom_type_script = "uid://d01t5w5uthwj0"
 
 [node name="Hurtbox" type="Area2D" parent="."]
 script = ExtResource("4_jyb7i")
+attack = ExtResource("5_jjb3m")
 metadata/_custom_type_script = "uid://dlaub0dqcbxl7"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]

@@ -1,14 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://6273s2of4qv8"]
+[gd_scene load_steps=5 format=3 uid="uid://6273s2of4qv8"]
 
 [ext_resource type="Texture2D" uid="uid://18vk7qekbqov" path="res://World/Props/spikes.png" id="1_2jo8d"]
 [ext_resource type="Script" uid="uid://co177w1l2awj2" path="res://Interactable/spike_trap.gd" id="1_ersei"]
+[ext_resource type="Resource" uid="uid://dun7objvqcnhx" path="res://Components/Attacks/smallhit.tres" id="2_s7d1j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vqqay"]
 
 [node name="SpikeTrap" type="Area2D"]
 collision_layer = 0
-collision_mask = 4
+collision_mask = 2
 script = ExtResource("1_ersei")
+attack = ExtResource("2_s7d1j")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_vqqay")
