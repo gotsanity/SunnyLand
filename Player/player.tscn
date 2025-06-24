@@ -182,7 +182,7 @@ rotation = 0.00468877
 shape = SubResource("RectangleShape2D_gwnis")
 
 [node name="HealthComponent" parent="." instance=ExtResource("4_k53q1")]
-max_health = 100.0
+max_health = 10.0
 
 [node name="HurtBox" type="Area2D" parent="."]
 script = ExtResource("5_k53q1")
