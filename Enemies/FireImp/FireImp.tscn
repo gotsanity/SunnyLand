@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://g34cc440e3si"]
+[gd_scene load_steps=23 format=3 uid="uid://g34cc440e3si"]
 
 [ext_resource type="Script" uid="uid://b10kg6kb856xr" path="res://Enemies/BaseEnemy/BaseEnemy.gd" id="1_xmy0k"]
 [ext_resource type="Texture2D" uid="uid://bkwhtuoforaan" path="res://Assets/Characters/Players/Fiery Imp/idle/idle-preview.png" id="2_hlwt7"]
+[ext_resource type="Texture2D" uid="uid://w1lmh8tdldcf" path="res://Assets/Characters/Players/Fiery Imp/shot/shot-preview.png" id="3_4wig3"]
 [ext_resource type="Script" uid="uid://dssf1kthw6mtj" path="res://Components/Hitbox.gd" id="3_dhtqb"]
 [ext_resource type="Script" uid="uid://dlaub0dqcbxl7" path="res://Components/Hurtbox.gd" id="4_eqtv3"]
 [ext_resource type="Script" uid="uid://dxiprnvw4yo2s" path="res://Components/State Machine.gd" id="5_h2fj2"]
@@ -30,6 +31,26 @@ region = Rect2(102, 0, 51, 45)
 atlas = ExtResource("2_hlwt7")
 region = Rect2(153, 0, 51, 45)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_40xwt"]
+atlas = ExtResource("3_4wig3")
+region = Rect2(0, 0, 51, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_47lec"]
+atlas = ExtResource("3_4wig3")
+region = Rect2(51, 0, 51, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_grl2b"]
+atlas = ExtResource("3_4wig3")
+region = Rect2(102, 0, 51, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xquqj"]
+atlas = ExtResource("3_4wig3")
+region = Rect2(153, 0, 51, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktoki"]
+atlas = ExtResource("3_4wig3")
+region = Rect2(204, 0, 51, 45)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_47lec"]
 animations = [{
 "frames": [{
@@ -48,9 +69,30 @@ animations = [{
 "loop": true,
 "name": &"idle",
 "speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_40xwt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_47lec")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_grl2b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xquqj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ktoki")
+}],
+"loop": false,
+"name": &"ranged",
+"speed": 12.0
 }]
 
 [node name="FireImp" type="CharacterBody2D" node_paths=PackedStringArray("attack")]
+collision_layer = 0
 script = ExtResource("1_xmy0k")
 attack = NodePath("StateMachine/EnemyRangedAttack")
 flip_anims = true
@@ -61,15 +103,9 @@ flip_anims = true
 position = Vector2(-0.5, -12.5)
 shape = SubResource("RectangleShape2D_40xwt")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -22.5)
-sprite_frames = SubResource("SpriteFrames_47lec")
-animation = &"idle"
-autoplay = "idle"
-frame_progress = 0.39061
-
-[node name="Hitbox" type="Area2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("sprite")]
 script = ExtResource("3_dhtqb")
+sprite = NodePath("../AnimatedSprite2D")
 metadata/_custom_type_script = "uid://dssf1kthw6mtj"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
@@ -98,12 +134,25 @@ metadata/_custom_type_script = "uid://bvk8spgb2x173"
 
 [node name="EnemyFollow" type="Node" parent="StateMachine"]
 script = ExtResource("8_eqtv3")
+target_distance = 100
 metadata/_custom_type_script = "uid://6pfuykb5tuxs"
 
-[node name="EnemyRangedAttack" type="Node" parent="StateMachine"]
+[node name="EnemyRangedAttack" type="Node" parent="StateMachine" node_paths=PackedStringArray("bullet_point")]
 script = ExtResource("9_h2fj2")
+bullet_point = NodePath("../../AnimatedSprite2D/BulletPoint")
 metadata/_custom_type_script = "uid://begc23ar57pqc"
 
-[node name="HealthComponent" type="Node" parent="."]
+[node name="HealthComponent" type="Node" parent="." node_paths=PackedStringArray("hitbox")]
 script = ExtResource("8_dhtqb")
+hitbox = NodePath("../Hitbox")
 metadata/_custom_type_script = "uid://d01t5w5uthwj0"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -22.5)
+sprite_frames = SubResource("SpriteFrames_47lec")
+animation = &"ranged"
+autoplay = "idle"
+frame = 2
+
+[node name="BulletPoint" type="Node2D" parent="AnimatedSprite2D"]
+position = Vector2(7, 11.5)

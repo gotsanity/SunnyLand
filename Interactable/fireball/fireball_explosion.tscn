@@ -1,0 +1,72 @@
+[gd_scene load_steps=11 format=3 uid="uid://dtbaqjguen4tr"]
+
+[ext_resource type="Texture2D" uid="uid://dlgietl0b03fd" path="res://Assets/Props Items and VFX/fireball-hit/spritesheet.png" id="1_ayubk"]
+[ext_resource type="Script" uid="uid://dab2gjti0gp8p" path="res://Interactable/fireball/fireball_explosion.gd" id="1_lnbs8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lnbs8"]
+atlas = ExtResource("1_ayubk")
+region = Rect2(0, 0, 29, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uor7d"]
+atlas = ExtResource("1_ayubk")
+region = Rect2(29, 0, 29, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ds8mw"]
+atlas = ExtResource("1_ayubk")
+region = Rect2(58, 0, 29, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_46213"]
+atlas = ExtResource("1_ayubk")
+region = Rect2(87, 0, 29, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lcve3"]
+atlas = ExtResource("1_ayubk")
+region = Rect2(116, 0, 29, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pyyld"]
+atlas = ExtResource("1_ayubk")
+region = Rect2(145, 0, 29, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yal6b"]
+atlas = ExtResource("1_ayubk")
+region = Rect2(174, 0, 29, 27)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ohifr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lnbs8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uor7d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ds8mw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_46213")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lcve3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pyyld")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yal6b")
+}],
+"loop": false,
+"name": &"default",
+"speed": 24.0
+}]
+
+[node name="FireballExplosion" type="Node2D"]
+script = ExtResource("1_lnbs8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ohifr")
+autoplay = "default"
+frame = 6
+frame_progress = 1.0
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
