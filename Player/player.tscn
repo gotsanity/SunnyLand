@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bjlwfbex7gcxh" path="res://Components/Hitbox.tscn" id="3_gwnis"]
 [ext_resource type="PackedScene" uid="uid://cg114sr6xui66" path="res://Components/HealthComponent.tscn" id="4_k53q1"]
 [ext_resource type="Script" uid="uid://dlaub0dqcbxl7" path="res://Components/Hurtbox.gd" id="5_k53q1"]
-[ext_resource type="Resource" uid="uid://dun7objvqcnhx" path="res://Components/Attacks/smallhit.tres" id="6_fhl08"]
+[ext_resource type="Resource" uid="uid://b23x04ryle1o1" path="res://Components/Attacks/player_stomp.tres" id="6_fhl08"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ok28f"]
 
