@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://dre87iofqpfrk"]
+[gd_scene load_steps=17 format=3 uid="uid://dre87iofqpfrk"]
 
 [ext_resource type="Script" uid="uid://b10kg6kb856xr" path="res://Enemies/BaseEnemy/BaseEnemy.gd" id="1_d8e6p"]
 [ext_resource type="Texture2D" uid="uid://b3qsnu86qjb8v" path="res://Enemies/Oposum/oposum.png" id="2_w4l4t"]
 [ext_resource type="Script" uid="uid://dlaub0dqcbxl7" path="res://Components/Hurtbox.gd" id="3_q33g0"]
 [ext_resource type="Script" uid="uid://dssf1kthw6mtj" path="res://Components/Hitbox.gd" id="4_akc86"]
+[ext_resource type="Resource" uid="uid://dun7objvqcnhx" path="res://Components/Attacks/smallhit.tres" id="4_q33g0"]
 [ext_resource type="Script" uid="uid://d01t5w5uthwj0" path="res://Components/HealthComponent.gd" id="5_h7ov6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ocnlb"]
@@ -84,6 +85,7 @@ autostart = true
 
 [node name="HurtBox" type="Area2D" parent="."]
 script = ExtResource("3_q33g0")
+attack = ExtResource("4_q33g0")
 metadata/_custom_type_script = "uid://dlaub0dqcbxl7"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]

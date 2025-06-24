@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bttsjij0ss8q0"]
+[gd_scene load_steps=20 format=3 uid="uid://bttsjij0ss8q0"]
 
 [ext_resource type="Texture2D" uid="uid://m7jx3eb2ey3e" path="res://Enemies/Frog/frog-jump.png" id="1_ld22g"]
 [ext_resource type="Script" uid="uid://b10kg6kb856xr" path="res://Enemies/BaseEnemy/BaseEnemy.gd" id="1_tsaag"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://d01t5w5uthwj0" path="res://Components/HealthComponent.gd" id="4_y3bwy"]
 [ext_resource type="Script" uid="uid://dlaub0dqcbxl7" path="res://Components/Hurtbox.gd" id="5_bwicp"]
 [ext_resource type="Script" uid="uid://dssf1kthw6mtj" path="res://Components/Hitbox.gd" id="6_tsaag"]
+[ext_resource type="Resource" uid="uid://dun7objvqcnhx" path="res://Components/Attacks/smallhit.tres" id="6_wpxah"]
 [ext_resource type="Script" uid="uid://dxiprnvw4yo2s" path="res://Components/State Machine.gd" id="7_tsaag"]
 [ext_resource type="Script" uid="uid://dusvmh1k02q18" path="res://Components/States/Enemy/EnemyHop.gd" id="8_tsaag"]
 
@@ -100,6 +101,7 @@ metadata/_custom_type_script = "uid://d01t5w5uthwj0"
 
 [node name="Hurtbox" type="Area2D" parent="."]
 script = ExtResource("5_bwicp")
+attack = ExtResource("6_wpxah")
 metadata/_custom_type_script = "uid://dlaub0dqcbxl7"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]

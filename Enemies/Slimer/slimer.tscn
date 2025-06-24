@@ -1,10 +1,11 @@
-[gd_scene load_steps=31 format=3 uid="uid://dxjq0j1grlgou"]
+[gd_scene load_steps=32 format=3 uid="uid://dxjq0j1grlgou"]
 
 [ext_resource type="Texture2D" uid="uid://brdct8m6pi44s" path="res://Enemies/Slimer/slimer.png" id="1_3keq5"]
 [ext_resource type="Script" uid="uid://b10kg6kb856xr" path="res://Enemies/BaseEnemy/BaseEnemy.gd" id="1_x6omu"]
 [ext_resource type="Texture2D" uid="uid://c4ipf2d046mbs" path="res://Enemies/Slimer/slimer-idle.png" id="2_a0mjg"]
 [ext_resource type="Script" uid="uid://dssf1kthw6mtj" path="res://Components/Hitbox.gd" id="4_4flgy"]
 [ext_resource type="Script" uid="uid://dlaub0dqcbxl7" path="res://Components/Hurtbox.gd" id="5_s148r"]
+[ext_resource type="Resource" uid="uid://dun7objvqcnhx" path="res://Components/Attacks/smallhit.tres" id="6_rmk0r"]
 [ext_resource type="Script" uid="uid://d01t5w5uthwj0" path="res://Components/HealthComponent.gd" id="6_s148r"]
 [ext_resource type="Script" uid="uid://dxiprnvw4yo2s" path="res://Components/State Machine.gd" id="7_nh86k"]
 [ext_resource type="Script" uid="uid://bvk8spgb2x173" path="res://Components/States/Enemy/EnemyIdle.gd" id="8_p21hu"]
@@ -166,6 +167,7 @@ shape = SubResource("RectangleShape2D_vmcqv")
 
 [node name="Hurtbox" type="Area2D" parent="."]
 script = ExtResource("5_s148r")
+attack = ExtResource("6_rmk0r")
 metadata/_custom_type_script = "uid://dlaub0dqcbxl7"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]

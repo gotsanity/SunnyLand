@@ -1,0 +1,109 @@
+[gd_scene load_steps=17 format=3 uid="uid://g34cc440e3si"]
+
+[ext_resource type="Script" uid="uid://b10kg6kb856xr" path="res://Enemies/BaseEnemy/BaseEnemy.gd" id="1_xmy0k"]
+[ext_resource type="Texture2D" uid="uid://bkwhtuoforaan" path="res://Assets/Characters/Players/Fiery Imp/idle/idle-preview.png" id="2_hlwt7"]
+[ext_resource type="Script" uid="uid://dssf1kthw6mtj" path="res://Components/Hitbox.gd" id="3_dhtqb"]
+[ext_resource type="Script" uid="uid://dlaub0dqcbxl7" path="res://Components/Hurtbox.gd" id="4_eqtv3"]
+[ext_resource type="Script" uid="uid://dxiprnvw4yo2s" path="res://Components/State Machine.gd" id="5_h2fj2"]
+[ext_resource type="Resource" uid="uid://dun7objvqcnhx" path="res://Components/Attacks/smallhit.tres" id="5_hlwt7"]
+[ext_resource type="Script" uid="uid://bvk8spgb2x173" path="res://Components/States/Enemy/EnemyIdle.gd" id="6_4wig3"]
+[ext_resource type="Script" uid="uid://d01t5w5uthwj0" path="res://Components/HealthComponent.gd" id="8_dhtqb"]
+[ext_resource type="Script" uid="uid://6pfuykb5tuxs" path="res://Components/States/Enemy/EnemyFollow.gd" id="8_eqtv3"]
+[ext_resource type="Script" uid="uid://begc23ar57pqc" path="res://Components/States/Enemy/EnemyRangedAttack.gd" id="9_h2fj2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_40xwt"]
+size = Vector2(25, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_povtx"]
+atlas = ExtResource("2_hlwt7")
+region = Rect2(0, 0, 51, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fnwtm"]
+atlas = ExtResource("2_hlwt7")
+region = Rect2(51, 0, 51, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tsxbm"]
+atlas = ExtResource("2_hlwt7")
+region = Rect2(102, 0, 51, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q4gdc"]
+atlas = ExtResource("2_hlwt7")
+region = Rect2(153, 0, 51, 45)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_47lec"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_povtx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fnwtm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tsxbm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q4gdc")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 12.0
+}]
+
+[node name="FireImp" type="CharacterBody2D" node_paths=PackedStringArray("attack")]
+script = ExtResource("1_xmy0k")
+attack = NodePath("StateMachine/EnemyRangedAttack")
+flip_anims = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -12.5)
+shape = SubResource("RectangleShape2D_40xwt")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -22.5)
+sprite_frames = SubResource("SpriteFrames_47lec")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.39061
+
+[node name="Hitbox" type="Area2D" parent="."]
+script = ExtResource("3_dhtqb")
+metadata/_custom_type_script = "uid://dssf1kthw6mtj"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-0.5, -12.5)
+shape = SubResource("RectangleShape2D_40xwt")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+script = ExtResource("4_eqtv3")
+attack = ExtResource("5_hlwt7")
+metadata/_custom_type_script = "uid://dlaub0dqcbxl7"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-0.5, -12.5)
+shape = SubResource("RectangleShape2D_40xwt")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("5_h2fj2")
+initial_state = NodePath("EnemyIdle")
+debug = true
+metadata/_custom_type_script = "uid://dxiprnvw4yo2s"
+
+[node name="EnemyIdle" type="Node" parent="StateMachine"]
+script = ExtResource("6_4wig3")
+follow_distance = 100.0
+metadata/_custom_type_script = "uid://bvk8spgb2x173"
+
+[node name="EnemyFollow" type="Node" parent="StateMachine"]
+script = ExtResource("8_eqtv3")
+metadata/_custom_type_script = "uid://6pfuykb5tuxs"
+
+[node name="EnemyRangedAttack" type="Node" parent="StateMachine"]
+script = ExtResource("9_h2fj2")
+metadata/_custom_type_script = "uid://begc23ar57pqc"
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("8_dhtqb")
+metadata/_custom_type_script = "uid://d01t5w5uthwj0"
