@@ -53,7 +53,7 @@ func isLoaded(comp, comp_name):
 
 func _physics_process(delta):
 	# Add the gravity.
-	if not is_on_floor() and not enable_flying:
+	if not enable_flying:
 		velocity.y += gravity * delta
 	
 	update_animations()
