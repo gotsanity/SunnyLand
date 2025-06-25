@@ -14,16 +14,10 @@ var speed := 100
 var timer: Timer
 
 func _ready():
-	timer = Timer.new()
-	timer.autostart = true
-	timer.set_one_shot(true)
-	timer.set_wait_time(time_to_live)
-	timer.connect("timeout", on_timeout)
-	timer.start()
-	add_child(timer)
-	
 	global_position = pos
 	look_at(target)
+	await get_tree().create_timer(time_to_live).timeout
+	explode()
 
 func _physics_process(_delta):
 	velocity = direction * speed

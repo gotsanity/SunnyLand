@@ -25,6 +25,9 @@ func Enter():
 	shot.explosion = bullet_impact
 	get_tree().root.add_child(shot)
 
+func Exit():
+	enemy.animated_sprite_2d.disconnect("animation_finished", on_animation_finished)
+
 func on_animation_finished():
 	Transitioned.emit(self, "EnemyIdle")
 	pass

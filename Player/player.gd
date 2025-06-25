@@ -106,7 +106,7 @@ func shoot():
 	shot.pos = bullet_point.global_position
 	shot.target = mouse_position
 	shot.explosion = bullet_impact
-	get_tree().root.add_child(shot)
+	add_child(shot)
 	pass
 
 
