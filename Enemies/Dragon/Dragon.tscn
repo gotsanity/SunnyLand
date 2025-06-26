@@ -1,0 +1,125 @@
+[gd_scene load_steps=20 format=3 uid="uid://dwc772d07koiu"]
+
+[ext_resource type="Script" uid="uid://d01t5w5uthwj0" path="res://Components/HealthComponent.gd" id="1_4kyy1"]
+[ext_resource type="Script" uid="uid://b10kg6kb856xr" path="res://Enemies/BaseEnemy/BaseEnemy.gd" id="1_7bobc"]
+[ext_resource type="Script" uid="uid://dlaub0dqcbxl7" path="res://Components/Hurtbox.gd" id="2_uhjqu"]
+[ext_resource type="Script" uid="uid://dssf1kthw6mtj" path="res://Components/Hitbox.gd" id="3_uwfvu"]
+[ext_resource type="Resource" uid="uid://dun7objvqcnhx" path="res://Components/Attacks/smallhit.tres" id="4_6ymvj"]
+[ext_resource type="Texture2D" uid="uid://r04h24ikpu05" path="res://Assets/Characters/Enemies and NPC/sunny-dragon/spritesheets/sunny-dragon-fly.png" id="4_uhjqu"]
+[ext_resource type="Script" uid="uid://dxiprnvw4yo2s" path="res://Components/State Machine.gd" id="7_f10hn"]
+[ext_resource type="Script" uid="uid://bvk8spgb2x173" path="res://Components/States/Enemy/EnemyIdle.gd" id="8_nv5h7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uhjqu"]
+size = Vector2(150, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uwfvu"]
+atlas = ExtResource("4_uhjqu")
+region = Rect2(0, 0, 192, 176)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7bobc"]
+atlas = ExtResource("4_uhjqu")
+region = Rect2(192, 0, 192, 176)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ymvj"]
+atlas = ExtResource("4_uhjqu")
+region = Rect2(384, 0, 192, 176)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f10hn"]
+atlas = ExtResource("4_uhjqu")
+region = Rect2(576, 0, 192, 176)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nv5h7"]
+atlas = ExtResource("4_uhjqu")
+region = Rect2(768, 0, 192, 176)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5usga"]
+atlas = ExtResource("4_uhjqu")
+region = Rect2(960, 0, 192, 176)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vyycn"]
+atlas = ExtResource("4_uhjqu")
+region = Rect2(1152, 0, 192, 176)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4nstc"]
+atlas = ExtResource("4_uhjqu")
+region = Rect2(1344, 0, 192, 176)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_krkqj"]
+atlas = ExtResource("4_uhjqu")
+region = Rect2(1536, 0, 192, 176)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jo8de"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uwfvu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7bobc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ymvj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f10hn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nv5h7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5usga")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vyycn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4nstc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_krkqj")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 12.0
+}]
+
+[node name="Dragon" type="CharacterBody2D"]
+script = ExtResource("1_7bobc")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("1_4kyy1")
+metadata/_custom_type_script = "uid://d01t5w5uthwj0"
+
+[node name="Hurtbox" type="Area2D" parent="."]
+script = ExtResource("2_uhjqu")
+attack = ExtResource("4_6ymvj")
+metadata/_custom_type_script = "uid://dlaub0dqcbxl7"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_uhjqu")
+
+[node name="Hitbox" type="Area2D" parent="."]
+script = ExtResource("3_uwfvu")
+metadata/_custom_type_script = "uid://dssf1kthw6mtj"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_uhjqu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_uhjqu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -21)
+sprite_frames = SubResource("SpriteFrames_jo8de")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.418848
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("7_f10hn")
+initial_state = NodePath("EnemyIdle")
+metadata/_custom_type_script = "uid://dxiprnvw4yo2s"
+
+[node name="EnemyIdle" type="Node" parent="StateMachine"]
+script = ExtResource("8_nv5h7")
+metadata/_custom_type_script = "uid://bvk8spgb2x173"

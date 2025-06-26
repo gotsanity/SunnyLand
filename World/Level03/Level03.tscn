@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dhx73w5ccsqtx"]
+
+[ext_resource type="PackedScene" uid="uid://bcsnyw4t6pnw2" path="res://World/parallax_background.tscn" id="1_pr7yd"]
+[ext_resource type="TileSet" uid="uid://dgp60fa4r1vdi" path="res://World/world-tileset.tres" id="2_ows4y"]
+[ext_resource type="PackedScene" uid="uid://bapvy71043313" path="res://Player/player.tscn" id="3_kbhw7"]
+
+[node name="Level03" type="Node2D"]
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("1_pr7yd")]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("2_ows4y")
+format = 2
+layer_0/tile_data = PackedInt32Array(720897, 196608, 1, 720898, 196608, 1, 720899, 196608, 1, 720900, 196608, 1, 655365, 196608, 1, 655366, 196608, 1, 655367, 196608, 1, 655368, 196608, 1, 655369, 196608, 1, 655370, 196608, 1, 655371, 196608, 1, 655372, 196608, 1, 655373, 196608, 1, 655374, 196608, 1, 655375, 196608, 1, 655376, 196608, 1, 655377, 196608, 1, 655378, 196608, 1, 655379, 196608, 1, 655380, 196608, 1, 655381, 196608, 1, 655382, 196608, 1, 655383, 196608, 1, 655384, 196608, 1, 655385, 196608, 1, 655386, 196608, 1, 720921, 196608, 1, 720920, 196608, 1, 720919, 196608, 1, 720918, 196608, 1)
+
+[node name="Player" parent="." instance=ExtResource("3_kbhw7")]
+position = Vector2(200, 85)
