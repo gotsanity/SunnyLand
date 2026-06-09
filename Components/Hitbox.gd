@@ -53,6 +53,10 @@ func _on_area_entered(area):
 				hit_react.emit(area.attack)
 				area.owner.bounce_after_stomp()
 		else:
+			# Mirror of the stomp rule: if WE are the player and we're above the
+			# attacker, we're stomping it — don't take contact damage this frame.
+			if owner is Player and int(owner.global_position.y + 2) < int(area.owner.global_position.y):
+				return
 			damage(area.attack)
 			area.on_hit()
 			hit_react.emit(area.attack)

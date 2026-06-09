@@ -187,6 +187,7 @@ shape = SubResource("RectangleShape2D_gwnis")
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("hitbox") instance=ExtResource("4_k53q1")]
 max_health = 10.0
 hitbox = NodePath("../Hitbox")
+invuln_duration = 1.0
 
 [node name="HurtBox" type="Area2D" parent="."]
 script = ExtResource("5_k53q1")
