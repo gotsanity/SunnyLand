@@ -39,15 +39,17 @@ func Physics_Update(delta: float):
 		move_forward()
 
 func move_forward():
-	var direction
+	var to_player = player.global_position - enemy.global_position
+	enemy.direction = to_player.x
+
 	if enemy.enable_flying:
-		direction = player.global_position - enemy.global_position
+		# Flying: steer freely in both directions toward the player.
+		enemy.velocity = to_player.normalized() * (enemy.SPEED * speed_multiplier)
 	else:
-		direction = Vector2(player.global_position.x - enemy.global_position.x, 0)
-	
-	enemy.direction = direction.x
-	
-	enemy.velocity = direction.normalized() * (enemy.SPEED * speed_multiplier)
+		# Ground: only set horizontal speed so BaseEnemy's gravity still
+		# applies on velocity.y and the enemy falls off ledges.
+		enemy.velocity.x = signf(to_player.x) * (enemy.SPEED * speed_multiplier)
+
 	enemy.move_and_slide()
 
 func attack():
