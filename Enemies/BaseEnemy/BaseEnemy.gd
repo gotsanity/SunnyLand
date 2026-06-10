@@ -27,9 +27,10 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @export var enable_flying = false
 
 func _ready():
-	collision_layer = 1
-	set_collision_mask_value(1, true)
-	set_collision_mask_value(2, true)
+	collision_layer = 0
+	set_collision_layer_value(3, true)   # dedicated "enemy" layer — the player's mask (world only) ignores it
+	collision_mask = 0
+	set_collision_mask_value(1, true)    # still collide with the world so enemies walk/stand on tiles
 	
 	initial_position = global_position
 	if isLoaded(health_component, "HealthComponent"):
