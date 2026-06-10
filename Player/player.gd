@@ -136,9 +136,6 @@ func respawn():
 	can_move = false
 	is_dead = true
 	await get_tree().create_timer(respawn_timer_length).timeout
-	self.global_position = respawn_position.get_origin()
-	velocity = Vector2.ZERO
-	animated_sprite_2d.modulate = Color(1, 1, 1, 1)   # clear any leftover blink alpha
-	self.visible = true
-	can_move = true
-	is_dead = false
+	# Reload the whole level so killed enemies (and pickups) come back.
+	# The player starts at the level's beginning, same as respawn_position.
+	get_tree().reload_current_scene()

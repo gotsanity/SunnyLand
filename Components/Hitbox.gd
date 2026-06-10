@@ -62,6 +62,16 @@ func _on_area_entered(area):
 			hit_react.emit(area.attack)
 
 
+# Re-run the contact check against any Hurtbox still overlapping us. Called by
+# the HealthComponent when our i-frames end, because area_entered only fires on
+# a fresh overlap — an enemy already standing in our space would otherwise never
+# hit us again until we leave and re-enter.
+func recheck_contacts():
+	for area in get_overlapping_areas():
+		if area is Hurtbox:
+			_on_area_entered(area)
+
+
 func on_hit_react(_attack: Attack):
 	if sprite:
 		# Flash white

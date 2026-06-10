@@ -58,3 +58,7 @@ func start_invulnerability():
 	is_invulnerable = false
 	if sprite:
 		sprite.modulate = Color(1, 1, 1, 1)   # hard restore — always fully visible afterward
+	# If an enemy is still standing in our space, take the hit again now rather
+	# than waiting for them to leave and re-enter (area_entered won't re-fire).
+	if hitbox:
+		hitbox.recheck_contacts()
