@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://0n8tfusaiur2"]
+[gd_scene load_steps=30 format=3 uid="uid://0n8tfusaiur2"]
 
 [ext_resource type="PackedScene" uid="uid://bcsnyw4t6pnw2" path="res://World/parallax_background.tscn" id="1_rrvhw"]
 [ext_resource type="Texture2D" uid="uid://2yk0n7w5f8jv" path="res://World/Props/tree.png" id="2_0gxen"]
@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://hvw2tjk7rxpp" path="res://Enemies/Oposum/oposum.tscn" id="21_7xhy1"]
 [ext_resource type="PackedScene" uid="uid://cewt171s35pmt" path="res://Pickups/Gem/gem.tscn" id="22_anca2"]
 [ext_resource type="PackedScene" uid="uid://c6diiunn70psp" path="res://Pickups/Cheery/cherry.tscn" id="23_gnsqw"]
+[ext_resource type="PackedScene" path="res://Pickups/Strawberry/strawberry.tscn" id="29_strwb"]
 [ext_resource type="PackedScene" uid="uid://bapvy71043313" path="res://Player/player.tscn" id="24_4y1t5"]
 [ext_resource type="AudioStream" uid="uid://dinseoiw5ecvq" path="res://Music/walkyandtalky.ogg" id="25_gkp76"]
 [ext_resource type="PackedScene" uid="uid://dxjq0j1grlgou" path="res://Enemies/Slimer/slimer.tscn" id="26_r6d8d"]
@@ -260,6 +261,9 @@ position = Vector2(3352, 136)
 
 [node name="Gem3" parent="Pickups" instance=ExtResource("22_anca2")]
 position = Vector2(960, 176)
+
+[node name="Strawberry" parent="Pickups" instance=ExtResource("29_strwb")]
+position = Vector2(264, 152)
 
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("24_4y1t5")]
 position = Vector2(107, 170)

@@ -6,6 +6,16 @@ class_name Player
 @export var JUMP_VELOCITY = -300.0
 @export var BOUNCE_HEIGHT = -300.0
 
+# Dash ability (unlocked by the Strawberry pickup, which sets has_dash = true).
+@export var DASH_SPEED = 260.0       # how fast the dash moves
+@export var DASH_DURATION = 0.15     # how long the dash lasts, in seconds
+@export var DASH_COOLDOWN = 0.5      # wait time before you can dash again
+var has_dash := false                # false until the strawberry is collected
+var is_dashing := false
+var dash_direction := 1.0
+var dash_timer := 0.0
+var dash_cooldown_timer := 0.0
+
 @export var ranged_attack: Attack
 @export var bullet = preload("res://Interactable/fireball/fireball.tscn")
 @export var bullet_point: Node2D
@@ -41,7 +51,29 @@ func _ready():
 func _physics_process(delta):
 	# Update if we are currently in the air.
 	was_in_air = not is_on_floor()
-	
+
+	# Count down the dash cooldown so we can dash again later.
+	if dash_cooldown_timer > 0.0:
+		dash_cooldown_timer -= delta
+
+	# Start a dash the moment Shift is pressed (once it's unlocked and ready).
+	if can_move and not dying and has_dash and Input.is_action_just_pressed("dash") \
+			and not is_dashing and dash_cooldown_timer <= 0.0:
+		start_dash()
+
+	# While dashing, shoot straight sideways and ignore gravity for a moment.
+	if is_dashing:
+		dash_timer -= delta
+		if dash_timer > 0.0:
+			velocity.x = dash_direction * DASH_SPEED
+			velocity.y = 0.0
+			animated_sprite_2d.flip_h = dash_direction < 0
+			animated_sprite_2d.play("run")
+			move_and_slide()
+			return
+		else:
+			is_dashing = false
+
 	# Add the gravity.
 	if was_in_air:
 		velocity.y += gravity * delta
@@ -126,6 +158,19 @@ func die():
 # This function is called after landing on an enemy to shoot the player into the air
 func bounce_after_stomp():
 	velocity.y = BOUNCE_HEIGHT
+
+
+# Kicks off a dash. Dash in the direction we're pressing, or the way we're
+# facing if no direction is held. Also starts the cooldown timer.
+func start_dash():
+	is_dashing = true
+	dash_timer = DASH_DURATION
+	dash_cooldown_timer = DASH_COOLDOWN
+	var input_axis = Input.get_axis("ui_left", "ui_right")
+	if input_axis != 0:
+		dash_direction = signf(input_axis)
+	else:
+		dash_direction = -1.0 if animated_sprite_2d.flip_h else 1.0
 
 
 # This function is called when the player is respawned.
