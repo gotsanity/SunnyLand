@@ -1,6 +1,7 @@
-[gd_scene load_steps=28 format=3 uid="uid://bapvy71043313"]
+[gd_scene load_steps=29 format=3 uid="uid://bapvy71043313"]
 
 [ext_resource type="Script" uid="uid://3tk2dwh0pq4g" path="res://Player/player.gd" id="1_1akqa"]
+[ext_resource type="PackedScene" path="res://UI/hud.tscn" id="7_hud"]
 [ext_resource type="Resource" uid="uid://ci70u38u0a65m" path="res://Components/Attacks/player_fireball.tres" id="2_vtle1"]
 [ext_resource type="Texture2D" uid="uid://bt8gb54hjkhl1" path="res://Player/player.png" id="2_vtor2"]
 [ext_resource type="PackedScene" uid="uid://bjlwfbex7gcxh" path="res://Components/Hitbox.tscn" id="3_gwnis"]
@@ -202,3 +203,5 @@ limit_smoothed = true
 
 [node name="BulletPoint" type="Node2D" parent="."]
 position = Vector2(9, 0)
+
+[node name="HUD" parent="." instance=ExtResource("7_hud")]

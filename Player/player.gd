@@ -6,7 +6,8 @@ class_name Player
 @export var JUMP_VELOCITY = -300.0
 @export var BOUNCE_HEIGHT = -300.0
 
-# Dash ability (unlocked by the Strawberry pickup, which sets has_dash = true).
+# Dash ability (unlocked by the Strawberry pickup via unlock_dash()).
+signal dash_unlocked                 # fired when the dash is granted (HUD listens)
 @export var DASH_SPEED = 260.0       # how fast the dash moves
 @export var DASH_DURATION = 0.15     # how long the dash lasts, in seconds
 @export var DASH_COOLDOWN = 0.5      # wait time before you can dash again
@@ -158,6 +159,12 @@ func die():
 # This function is called after landing on an enemy to shoot the player into the air
 func bounce_after_stomp():
 	velocity.y = BOUNCE_HEIGHT
+
+
+# Called by the Strawberry pickup to grant the dash and tell the HUD.
+func unlock_dash():
+	has_dash = true
+	dash_unlocked.emit()
 
 
 # Kicks off a dash. Dash in the direction we're pressing, or the way we're
