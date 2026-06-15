@@ -29,7 +29,7 @@ func damage(attack: Attack):
 	if is_invulnerable:
 		return
 	print(get_parent().name + " has been attacked for: " + str(attack.attack_damage).pad_decimals(2))
-	health -= clampf(attack.attack_damage, 0, max_health)
+	health = clampf(health - attack.attack_damage, 0, max_health)
 	health_changed.emit(health)
 	if hitbox:
 		hitbox.hit_react.emit(attack)
@@ -42,6 +42,9 @@ func damage(attack: Attack):
 	if invuln_duration > 0.0:
 		start_invulnerability()
 
+func heal(amount: int):
+	health = clampf(health + amount, 0, max_health)
+	health_changed.emit(health)
 
 # Brief post-hit invulnerability with a blinking sprite. Runs only when
 # invuln_duration > 0 (the player); enemies leave it at 0 and are unaffected.

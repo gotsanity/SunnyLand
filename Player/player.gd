@@ -4,7 +4,7 @@ class_name Player
 
 @export var SPEED = 110.0
 @export var JUMP_VELOCITY = -300.0
-@export var BOUNCE_HEIGHT = -300.0
+@export var BOUNCE_HEIGHT = -400.0
 
 # Dash ability (unlocked by the Strawberry pickup via unlock_dash()).
 signal dash_unlocked                 # fired when the dash is granted (HUD listens)

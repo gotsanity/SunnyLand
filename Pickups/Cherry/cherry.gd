@@ -11,4 +11,8 @@ func spawn_feedback():
 
 func _on_body_entered(_body):
 	spawn_feedback()
+	
+	if _body is Player:
+		_body.health_component.heal(1)
+	
 	queue_free()

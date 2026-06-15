@@ -1,7 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://c6diiunn70psp"]
+[gd_scene format=3 uid="uid://c6diiunn70psp"]
 
-[ext_resource type="Script" uid="uid://dl0jrjucn1hby" path="res://Pickups/Cheery/cherry.gd" id="1_g3p1m"]
-[ext_resource type="Texture2D" uid="uid://fvyuq31617vq" path="res://Pickups/Cheery/cherry.png" id="1_kyayr"]
+[ext_resource type="Script" uid="uid://dl0jrjucn1hby" path="res://Pickups/Cherry/cherry.gd" id="1_g3p1m"]
+[ext_resource type="Texture2D" uid="uid://fvyuq31617vq" path="res://Pickups/Cherry/cherry.png" id="1_kyayr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rx5wv"]
 atlas = ExtResource("1_kyayr")
