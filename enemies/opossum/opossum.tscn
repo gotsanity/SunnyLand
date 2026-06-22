@@ -1,0 +1,147 @@
+[gd_scene load_steps=21 format=3 uid="uid://hvw2tjk7rxpp"]
+
+[ext_resource type="Texture2D" uid="uid://b3qsnu86qjb8v" path="res://enemies/opossum/opossum.png" id="1_dpmf7"]
+[ext_resource type="Script" uid="uid://b10kg6kb856xr" path="res://enemies/base_enemy/base_enemy.gd" id="1_qqtis"]
+[ext_resource type="Script" uid="uid://d01t5w5uthwj0" path="res://components/health_component.gd" id="3_qqtis"]
+[ext_resource type="Script" uid="uid://dlaub0dqcbxl7" path="res://components/hitbox.gd" id="4_jyb7i"]
+[ext_resource type="Resource" uid="uid://dun7objvqcnhx" path="res://components/attacks/smallhit.tres" id="5_jjb3m"]
+[ext_resource type="Script" uid="uid://dssf1kthw6mtj" path="res://components/hurtbox.gd" id="5_xkgqn"]
+[ext_resource type="Script" uid="uid://dxiprnvw4yo2s" path="res://components/state_machine.gd" id="6_jyb7i"]
+[ext_resource type="Script" uid="uid://bvk8spgb2x173" path="res://components/states/enemy/enemy_idle.gd" id="7_xkgqn"]
+[ext_resource type="Script" uid="uid://6pfuykb5tuxs" path="res://components/states/enemy/enemy_follow.gd" id="8_04u4a"]
+[ext_resource type="Script" uid="uid://dcgu2e0w3hu7r" path="res://components/states/enemy/enemy_melee_attack.gd" id="9_8merm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ocnlb"]
+atlas = ExtResource("1_dpmf7")
+region = Rect2(0, 0, 36, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6f4tl"]
+atlas = ExtResource("1_dpmf7")
+region = Rect2(36, 0, 36, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_khukr"]
+atlas = ExtResource("1_dpmf7")
+region = Rect2(72, 0, 36, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sc3mw"]
+atlas = ExtResource("1_dpmf7")
+region = Rect2(108, 0, 36, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0xm8g"]
+atlas = ExtResource("1_dpmf7")
+region = Rect2(144, 0, 36, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kweho"]
+atlas = ExtResource("1_dpmf7")
+region = Rect2(180, 0, 36, 28)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fblae"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ocnlb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6f4tl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_khukr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sc3mw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0xm8g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kweho")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ocnlb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6f4tl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_khukr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sc3mw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0xm8g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kweho")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qqtis"]
+size = Vector2(26, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyb7i"]
+size = Vector2(26, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xkgqn"]
+size = Vector2(24, 4)
+
+[node name="Oposum" type="CharacterBody2D" node_paths=PackedStringArray("attack")]
+collision_layer = 0
+script = ExtResource("1_qqtis")
+SPEED = 50.0
+attack = NodePath("StateMachine/EnemyMeleeAttack")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_fblae")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3, 2)
+shape = SubResource("RectangleShape2D_qqtis")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_qqtis")
+metadata/_custom_type_script = "uid://d01t5w5uthwj0"
+
+[node name="Hitbox" type="Area2D" parent="."]
+script = ExtResource("4_jyb7i")
+attack = ExtResource("5_jjb3m")
+metadata/_custom_type_script = "uid://dlaub0dqcbxl7"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-3, 2)
+shape = SubResource("RectangleShape2D_jyb7i")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+script = ExtResource("5_xkgqn")
+metadata/_custom_type_script = "uid://dssf1kthw6mtj"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-3, -6)
+shape = SubResource("RectangleShape2D_xkgqn")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("6_jyb7i")
+initial_state = NodePath("EnemyIdle")
+metadata/_custom_type_script = "uid://dxiprnvw4yo2s"
+
+[node name="EnemyIdle" type="Node" parent="StateMachine"]
+script = ExtResource("7_xkgqn")
+metadata/_custom_type_script = "uid://bvk8spgb2x173"
+
+[node name="EnemyFollow" type="Node" parent="StateMachine"]
+script = ExtResource("8_04u4a")
+metadata/_custom_type_script = "uid://6pfuykb5tuxs"
+
+[node name="EnemyMeleeAttack" type="Node" parent="StateMachine"]
+script = ExtResource("9_8merm")
+metadata/_custom_type_script = "uid://dcgu2e0w3hu7r"

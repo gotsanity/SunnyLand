@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-SunnyLand is a 2D platformer built in **Godot 4.6** (GDScript, Forward Plus renderer). Low-res game: 360×240 viewport, `canvas_items` stretch, nearest-neighbor texture filtering. The main scene is `World/Level01/level_01.tscn`.
+SunnyLand is a 2D platformer built in **Godot 4.6** (GDScript, Forward Plus renderer). Low-res game: 360×240 viewport, `canvas_items` stretch, nearest-neighbor texture filtering. The main scene is `world/level_01/level_01.tscn`.
 
 ## Running / editing
 
@@ -16,34 +16,34 @@ There is no CLI build or test setup — work happens through the Godot editor. O
 
 The codebase is built around **scene composition + reusable Node components**, not inheritance-heavy class trees. An entity (player, enemy) is a `CharacterBody2D` scene that wires together component child nodes.
 
-### Component nodes (`Components/`)
+### Component nodes (`components/`)
 These are attached as children of an entity scene and discovered by name at runtime (e.g. `get_parent().get_node("HealthComponent")`), so **the node names matter** — keep them as `HealthComponent`, `Hitbox`, `Hurtbox`, `StateMachine`.
 
 - **`HealthComponent`** — holds `max_health`/`health`, exposes `damage(attack)`, emits `health_changed` and `died`. On reaching 0 health it sets `owner.is_dead = true` and emits `died`.
 - **`Hurtbox`** (Area2D) — the *receiving* box (where an entity **gets hurt**). On `area_entered` from a `Hitbox`, checks team and dead-state, then routes damage into the `HealthComponent`. Contains the player-stomp special case: if the attacker is the `Player` and is above the target, the hit lands and the player bounces (`bounce_after_stomp()`); otherwise the player takes no stomp damage. Flashes the sprite white on `hit_react`. (The `HealthComponent` references it via its `hurtbox` export.)
 - **`Hitbox`** (Area2D) — the *dealing* box (what **deals the hit**). Carries an `Attack` resource and emits `Impacted` via `on_hit()`.
-- **`Attack`** (Resource, `Attack.gd`) — data-only: `attack_damage`, `knockback_force`, `team`. Authored as `.tres` resources and assigned in the editor.
+- **`Attack`** (Resource, `attack.gd`) — data-only: `attack_damage`, `knockback_force`, `team`. Authored as `.tres` resources and assigned in the editor.
 
 **Collision layer/team convention:** physics layer 1 = `world`, layer 2 = `player_collision`, layer 3 = `enemy`. `BaseEnemy._ready()` puts every enemy body on layer 3 and masks **only** layer 1 (world) — so enemies walk on tiles but are *not solid* to the player (the player masks only world). The player therefore passes through enemies; all combat is resolved by the Area2D Hitbox/Hurtbox system, not by body collision (top contact = stomp + bounce, side contact = contact damage). The receiving `Hurtbox` uses `collision_layer = 0, collision_mask = 3`; the dealing `Hitbox` uses `collision_layer = 3, collision_mask = 0`. Friendly-fire is prevented by comparing `Attack.team` against the target's `team` string (`"player"` / `"enemy"`), **not** by physics layers — so an attack only matters if its `team` differs from the victim's.
 
-### State machine (`Components/State Machine.gd`, `state.gd`)
+### State machine (`components/state_machine.gd`, `state.gd`)
 A generic FSM used for enemy AI. `StateMachine` collects child `State` nodes into a dict keyed by lowercased node name, runs `Update`/`Physics_Update` on the current state, and listens for each state's `Transitioned` signal. **A state changes state by emitting `Transitioned.emit(self, "TargetStateNodeName")`** — the target is matched case-insensitively against sibling node names. Override `Enter`/`Exit`/`Update`/`Physics_Update` in `State` subclasses.
 
-Enemy states live in `Components/States/Enemy/` (Idle, Follow, Hop, Pause, MeleeAttack, RangedAttack). States reach their entity via `owner` and find the player with `get_tree().get_first_node_in_group("Player")` — **the player must be in the `"Player"` group** (assigned in the level scenes) for AI targeting to work.
+Enemy states live in `components/states/enemy/` (Idle, Follow, Hop, Pause, MeleeAttack, RangedAttack). States reach their entity via `owner` and find the player with `get_tree().get_first_node_in_group("Player")` — **the player must be in the `"Player"` group** (assigned in the level scenes) for AI targeting to work.
 
-### Enemies (`Enemies/`)
-`BaseEnemy.gd` (`BaseEnemy` class) is the shared base `CharacterBody2D`: applies gravity (unless `enable_flying`), handles sprite flipping, and on `died` clears hit/hurtboxes then `queue_free()`s after a delay. The `attack` export points at the State node to transition into when the player is in range (see `EnemyFollow` → `enemy.attack.name`). Concrete enemies (Dragon, Eagle, FireImp, Frog, Oposum, Slimer) are `.tscn` scenes that compose `BaseEnemy` + a `StateMachine` with a specific set of states; most have no per-enemy script.
+### Enemies (`enemies/`)
+`base_enemy.gd` (`BaseEnemy` class) is the shared base `CharacterBody2D`: applies gravity (unless `enable_flying`), handles sprite flipping, and on `died` clears hit/hurtboxes then `queue_free()`s after a delay. The `attack` export points at the State node to transition into when the player is in range (see `EnemyFollow` → `enemy.attack.name`). Concrete enemies (Dragon, Eagle, FireImp, Frog, Opossum, Slimer) are `.tscn` scenes that compose `BaseEnemy` + a `StateMachine` with a specific set of states; most have no per-enemy script.
 
-### Player (`Player/player.gd`)
+### Player (`player/player.gd`)
 Direct `_physics_process` movement (no FSM): gravity, jump on `ui_accept`, horizontal move via `ui_left`/`ui_right`, and `shoot` to fire a `Fireball` aimed at the mouse. Death is a multi-step sequence: `died` → `dying` flag → bounce up → on landing call `die()` → `respawn()` (hide, disable, wait `respawn_timer_length`, teleport to `respawn_position` captured at `_ready`).
 
-### Projectiles & interactables (`Interactable/`)
-`Fireball` travels along a `direction`, explodes on `time_to_live` timeout or on hitting an entity of the opposing `team`, spawning a `fireball_explosion` scene. Fireballs (player and `EnemyRangedAttack`) are added to `get_tree().root`, not the shooter, so they persist independently. Also: `spike_trap`, plus `goal`/`killbox` zone components in `Components/`.
+### Projectiles & interactables (`interactable/`)
+`Fireball` travels along a `direction`, explodes on `time_to_live` timeout or on hitting an entity of the opposing `team`, spawning a `fireball_explosion` scene. Fireballs (player and `EnemyRangedAttack`) are added to `get_tree().root`, not the shooter, so they persist independently. Also: `spike_trap`, plus `goal`/`killbox` zone components in `components/`.
 
-### Pickups (`Pickups/`)
+### Pickups (`pickups/`)
 `cherry`, `gem`, and a `feedback` scene.
 
-### Levels (`World/`)
+### Levels (`world/`)
 `Level01`–`Level03` are TileMap-based scenes that place the player, enemies, pickups, and a `parallax_background`. Levels are the source of group assignments (e.g. the `"Player"` group) and per-instance `Attack`/component exports.
 
 ## Conventions
