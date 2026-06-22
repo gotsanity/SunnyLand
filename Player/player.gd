@@ -6,6 +6,12 @@ class_name Player
 @export var JUMP_VELOCITY = -300.0
 @export var BOUNCE_HEIGHT = -400.0
 
+# Jump feel: small grace windows that make platforming forgiving.
+@export var COYOTE_TIME = 0.1       # how long after leaving a ledge you can still jump
+@export var JUMP_BUFFER_TIME = 0.1  # how early a jump press is remembered before landing
+var coyote_timer := 0.0
+var jump_buffer_timer := 0.0
+
 # Dash ability (unlocked by the Strawberry pickup via unlock_dash()).
 signal dash_unlocked                 # fired when the dash is granted (HUD listens)
 @export var DASH_SPEED = 260.0       # how fast the dash moves
@@ -53,6 +59,20 @@ func _physics_process(delta):
 	# Update if we are currently in the air.
 	was_in_air = not is_on_floor()
 
+	# Coyote time: refill the grace window while grounded, otherwise tick it down
+	# so a jump is still allowed for a moment after walking off a ledge.
+	if is_on_floor():
+		coyote_timer = COYOTE_TIME
+	else:
+		coyote_timer = max(coyote_timer - delta, 0.0)
+
+	# Jump buffering: remember a recent jump press so a press made just before
+	# landing still fires the jump on touchdown.
+	if Input.is_action_just_pressed("ui_accept"):
+		jump_buffer_timer = JUMP_BUFFER_TIME
+	else:
+		jump_buffer_timer = max(jump_buffer_timer - delta, 0.0)
+
 	# Count down the dash cooldown so we can dash again later.
 	if dash_cooldown_timer > 0.0:
 		dash_cooldown_timer -= delta
@@ -84,9 +104,12 @@ func _physics_process(delta):
 		velocity.y = JUMP_VELOCITY
 
 	if (can_move):
-		# Handle Jump.
-		if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+		# Handle Jump. Fire if a buffered press lines up with a valid coyote
+		# window, then consume both so the same press can't jump twice.
+		if jump_buffer_timer > 0.0 and coyote_timer > 0.0:
 			velocity.y = JUMP_VELOCITY
+			jump_buffer_timer = 0.0
+			coyote_timer = 0.0
 
 		if Input.is_action_just_pressed("shoot"):
 			shoot()

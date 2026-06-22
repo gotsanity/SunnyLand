@@ -1,13 +1,13 @@
-[gd_scene load_steps=29 format=3 uid="uid://bapvy71043313"]
+[gd_scene format=3 uid="uid://bapvy71043313"]
 
 [ext_resource type="Script" uid="uid://3tk2dwh0pq4g" path="res://Player/player.gd" id="1_1akqa"]
-[ext_resource type="PackedScene" path="res://UI/hud.tscn" id="7_hud"]
 [ext_resource type="Resource" uid="uid://ci70u38u0a65m" path="res://Components/Attacks/player_fireball.tres" id="2_vtle1"]
 [ext_resource type="Texture2D" uid="uid://bt8gb54hjkhl1" path="res://Player/player.png" id="2_vtor2"]
 [ext_resource type="PackedScene" uid="uid://bjlwfbex7gcxh" path="res://Components/Hitbox.tscn" id="3_gwnis"]
 [ext_resource type="PackedScene" uid="uid://cg114sr6xui66" path="res://Components/HealthComponent.tscn" id="4_k53q1"]
 [ext_resource type="Script" uid="uid://dlaub0dqcbxl7" path="res://Components/Hurtbox.gd" id="5_k53q1"]
 [ext_resource type="Resource" uid="uid://b23x04ryle1o1" path="res://Components/Attacks/player_stomp.tres" id="6_fhl08"]
+[ext_resource type="PackedScene" path="res://UI/hud.tscn" id="7_hud"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ok28f"]
 
@@ -84,7 +84,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_tl36m")
 }],
-"loop": true,
+"loop": 1,
 "name": &"crouch",
 "speed": 5.0
 }, {
@@ -95,7 +95,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_btcbx")
 }],
-"loop": true,
+"loop": 1,
 "name": &"death",
 "speed": 5.0
 }, {
@@ -103,7 +103,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rasfy")
 }],
-"loop": true,
+"loop": 1,
 "name": &"fall",
 "speed": 12.0
 }, {
@@ -120,7 +120,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_y47af")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 12.0
 }, {
@@ -128,7 +128,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6kbho")
 }],
-"loop": true,
+"loop": 1,
 "name": &"jump",
 "speed": 5.0
 }, {
@@ -151,7 +151,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wnpms")
 }],
-"loop": true,
+"loop": 1,
 "name": &"run",
 "speed": 12.0
 }]
@@ -161,47 +161,48 @@ size = Vector2(20, 20.0002)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fhl08"]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("bullet_point")]
+[node name="Player" type="CharacterBody2D" unique_id=136333293 node_paths=PackedStringArray("bullet_point")]
 collision_layer = 2
 script = ExtResource("1_1akqa")
+COYOTE_TIME = 0.2
 ranged_attack = ExtResource("2_vtle1")
 bullet_point = NodePath("BulletPoint")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1772697298]
 shape = SubResource("RectangleShape2D_ok28f")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2108752983]
 position = Vector2(0, -6)
 sprite_frames = SubResource("SpriteFrames_f4wda")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="Hitbox" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("3_gwnis")]
+[node name="Hitbox" parent="." unique_id=440912628 node_paths=PackedStringArray("sprite") instance=ExtResource("3_gwnis")]
 sprite = NodePath("../AnimatedSprite2D")
 hit_react_length = 0.2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=546607655]
 position = Vector2(-0.00184234, -0.000114918)
 rotation = 0.00468877
 shape = SubResource("RectangleShape2D_gwnis")
 
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("hitbox") instance=ExtResource("4_k53q1")]
+[node name="HealthComponent" parent="." unique_id=1523235413 node_paths=PackedStringArray("hitbox") instance=ExtResource("4_k53q1")]
 max_health = 10.0
 hitbox = NodePath("../Hitbox")
 invuln_duration = 1.0
 
-[node name="HurtBox" type="Area2D" parent="."]
+[node name="HurtBox" type="Area2D" parent="." unique_id=2127238571]
 script = ExtResource("5_k53q1")
 attack = ExtResource("6_fhl08")
 metadata/_custom_type_script = "uid://dlaub0dqcbxl7"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=644087933]
 shape = SubResource("RectangleShape2D_fhl08")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1991444733]
 limit_smoothed = true
 
-[node name="BulletPoint" type="Node2D" parent="."]
+[node name="BulletPoint" type="Node2D" parent="." unique_id=235898327]
 position = Vector2(9, 0)
 
-[node name="HUD" parent="." instance=ExtResource("7_hud")]
+[node name="HUD" parent="." unique_id=1366524445 instance=ExtResource("7_hud")]
