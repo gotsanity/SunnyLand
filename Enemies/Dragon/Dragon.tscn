@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://d01t5w5uthwj0" path="res://Components/HealthComponent.gd" id="1_4kyy1"]
 [ext_resource type="Script" uid="uid://b10kg6kb856xr" path="res://Enemies/BaseEnemy/BaseEnemy.gd" id="1_7bobc"]
-[ext_resource type="Script" uid="uid://dlaub0dqcbxl7" path="res://Components/Hurtbox.gd" id="2_uhjqu"]
-[ext_resource type="Script" uid="uid://dssf1kthw6mtj" path="res://Components/Hitbox.gd" id="3_uwfvu"]
+[ext_resource type="Script" uid="uid://dlaub0dqcbxl7" path="res://Components/Hitbox.gd" id="2_uhjqu"]
+[ext_resource type="Script" uid="uid://dssf1kthw6mtj" path="res://Components/Hurtbox.gd" id="3_uwfvu"]
 [ext_resource type="Resource" uid="uid://dun7objvqcnhx" path="res://Components/Attacks/smallhit.tres" id="4_6ymvj"]
 [ext_resource type="Texture2D" uid="uid://r04h24ikpu05" path="res://Assets/Characters/Enemies and NPC/sunny-dragon/spritesheets/sunny-dragon-fly.png" id="4_uhjqu"]
 [ext_resource type="Script" uid="uid://dxiprnvw4yo2s" path="res://Components/State Machine.gd" id="7_f10hn"]
@@ -90,19 +90,19 @@ script = ExtResource("1_7bobc")
 script = ExtResource("1_4kyy1")
 metadata/_custom_type_script = "uid://d01t5w5uthwj0"
 
-[node name="Hurtbox" type="Area2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="."]
 script = ExtResource("2_uhjqu")
 attack = ExtResource("4_6ymvj")
 metadata/_custom_type_script = "uid://dlaub0dqcbxl7"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_uhjqu")
 
-[node name="Hitbox" type="Area2D" parent="."]
+[node name="Hurtbox" type="Area2D" parent="."]
 script = ExtResource("3_uwfvu")
 metadata/_custom_type_script = "uid://dssf1kthw6mtj"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_uhjqu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

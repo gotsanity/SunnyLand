@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://b10kg6kb856xr" path="res://Enemies/BaseEnemy/BaseEnemy.gd" id="1_5fcp5"]
 [ext_resource type="Texture2D" uid="uid://ccy0y70qbsene" path="res://Enemies/Eagle/eagle-attack.png" id="1_u4vq8"]
-[ext_resource type="Script" uid="uid://dlaub0dqcbxl7" path="res://Components/Hurtbox.gd" id="3_st5e1"]
+[ext_resource type="Script" uid="uid://dlaub0dqcbxl7" path="res://Components/Hitbox.gd" id="3_st5e1"]
 [ext_resource type="Script" uid="uid://d01t5w5uthwj0" path="res://Components/HealthComponent.gd" id="4_mqfij"]
 [ext_resource type="Resource" uid="uid://dun7objvqcnhx" path="res://Components/Attacks/smallhit.tres" id="4_yuoq4"]
-[ext_resource type="Script" uid="uid://dssf1kthw6mtj" path="res://Components/Hitbox.gd" id="5_5fcp5"]
+[ext_resource type="Script" uid="uid://dssf1kthw6mtj" path="res://Components/Hurtbox.gd" id="5_5fcp5"]
 [ext_resource type="Script" uid="uid://dxiprnvw4yo2s" path="res://Components/State Machine.gd" id="6_hksar"]
 [ext_resource type="Script" uid="uid://bvk8spgb2x173" path="res://Components/States/Enemy/EnemyIdle.gd" id="7_g5umb"]
 [ext_resource type="Script" uid="uid://6pfuykb5tuxs" path="res://Components/States/Enemy/EnemyFollow.gd" id="9_ugsjc"]
@@ -88,12 +88,12 @@ autoplay = "idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_5fcp5")
 
-[node name="Hurtbox" type="Area2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="."]
 script = ExtResource("3_st5e1")
 attack = ExtResource("4_yuoq4")
 metadata/_custom_type_script = "uid://dlaub0dqcbxl7"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(-0.5, 1)
 shape = SubResource("RectangleShape2D_hksar")
 
@@ -101,11 +101,11 @@ shape = SubResource("RectangleShape2D_hksar")
 script = ExtResource("4_mqfij")
 metadata/_custom_type_script = "uid://d01t5w5uthwj0"
 
-[node name="Hitbox" type="Area2D" parent="."]
+[node name="Hurtbox" type="Area2D" parent="."]
 script = ExtResource("5_5fcp5")
 metadata/_custom_type_script = "uid://dssf1kthw6mtj"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_g5umb")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]

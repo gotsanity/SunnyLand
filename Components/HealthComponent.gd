@@ -3,7 +3,7 @@ class_name HealthComponent
 
 @export var max_health := 1.0
 var health: float
-@export var hitbox: Hitbox
+@export var hurtbox: Hurtbox
 
 @export var invuln_duration := 0.0   # 0 = no i-frames (enemies); player set to ~1.0
 @export var blink_interval := 0.1
@@ -15,8 +15,8 @@ signal died
 
 
 func _ready():
-	if !hitbox:
-		hitbox = get_parent().get_node("Hitbox")
+	if !hurtbox:
+		hurtbox = get_parent().get_node("Hurtbox")
 	health = max_health
 
 
@@ -31,8 +31,8 @@ func damage(attack: Attack):
 	print(get_parent().name + " has been attacked for: " + str(attack.attack_damage).pad_decimals(2))
 	health = clampf(health - attack.attack_damage, 0, max_health)
 	health_changed.emit(health)
-	if hitbox:
-		hitbox.hit_react.emit(attack)
+	if hurtbox:
+		hurtbox.hit_react.emit(attack)
 
 	if health <= 0:
 		owner.is_dead = true
@@ -50,7 +50,7 @@ func heal(amount: int):
 # invuln_duration > 0 (the player); enemies leave it at 0 and are unaffected.
 func start_invulnerability():
 	is_invulnerable = true
-	var sprite = hitbox.sprite if hitbox else null
+	var sprite = hurtbox.sprite if hurtbox else null
 	var elapsed := 0.0
 	while elapsed < invuln_duration:
 		# Await first so the white hit_react flash shows, then start blinking alpha.
@@ -63,5 +63,5 @@ func start_invulnerability():
 		sprite.modulate = Color(1, 1, 1, 1)   # hard restore — always fully visible afterward
 	# If an enemy is still standing in our space, take the hit again now rather
 	# than waiting for them to leave and re-enter (area_entered won't re-fire).
-	if hitbox:
-		hitbox.recheck_contacts()
+	if hurtbox:
+		hurtbox.recheck_contacts()

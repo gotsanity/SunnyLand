@@ -1,8 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://gqtiy5qnu52j"]
+[gd_scene load_steps=2 format=3 uid="uid://bjlwfbex7gcxh"]
 
-[ext_resource type="Script" uid="uid://dlaub0dqcbxl7" path="res://Components/Hurtbox.gd" id="1_kf53c"]
-[ext_resource type="Resource" uid="uid://dun7objvqcnhx" path="res://Components/Attacks/smallhit.tres" id="2_h0miq"]
+[ext_resource type="Script" uid="uid://dssf1kthw6mtj" path="res://Components/Hurtbox.gd" id="1_p3kl4"]
 
-[node name="HurtBoxComponent" type="Node"]
-script = ExtResource("1_kf53c")
-attack = ExtResource("2_h0miq")
+[node name="Hurtbox" type="Area2D"]
+script = ExtResource("1_p3kl4")

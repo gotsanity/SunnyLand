@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://b10kg6kb856xr" path="res://Enemies/BaseEnemy/BaseEnemy.gd" id="1_xmy0k"]
 [ext_resource type="Texture2D" uid="uid://bkwhtuoforaan" path="res://Assets/Characters/Players/Fiery Imp/idle/idle-preview.png" id="2_hlwt7"]
 [ext_resource type="Texture2D" uid="uid://w1lmh8tdldcf" path="res://Assets/Characters/Players/Fiery Imp/shot/shot-preview.png" id="3_4wig3"]
-[ext_resource type="Script" uid="uid://dssf1kthw6mtj" path="res://Components/Hitbox.gd" id="3_dhtqb"]
-[ext_resource type="Script" uid="uid://dlaub0dqcbxl7" path="res://Components/Hurtbox.gd" id="4_eqtv3"]
+[ext_resource type="Script" uid="uid://dssf1kthw6mtj" path="res://Components/Hurtbox.gd" id="3_dhtqb"]
+[ext_resource type="Script" uid="uid://dlaub0dqcbxl7" path="res://Components/Hitbox.gd" id="4_eqtv3"]
 [ext_resource type="Script" uid="uid://dxiprnvw4yo2s" path="res://Components/State Machine.gd" id="5_h2fj2"]
 [ext_resource type="Resource" uid="uid://dun7objvqcnhx" path="res://Components/Attacks/smallhit.tres" id="5_hlwt7"]
 [ext_resource type="Script" uid="uid://bvk8spgb2x173" path="res://Components/States/Enemy/EnemyIdle.gd" id="6_4wig3"]
@@ -103,21 +103,21 @@ flip_anims = true
 position = Vector2(-0.5, -12.5)
 shape = SubResource("RectangleShape2D_40xwt")
 
-[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("sprite")]
+[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("sprite")]
 script = ExtResource("3_dhtqb")
 sprite = NodePath("../AnimatedSprite2D")
 metadata/_custom_type_script = "uid://dssf1kthw6mtj"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(-0.5, -12.5)
 shape = SubResource("RectangleShape2D_40xwt")
 
-[node name="Hurtbox" type="Area2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="."]
 script = ExtResource("4_eqtv3")
 attack = ExtResource("5_hlwt7")
 metadata/_custom_type_script = "uid://dlaub0dqcbxl7"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(-0.5, -12.5)
 shape = SubResource("RectangleShape2D_40xwt")
 
@@ -142,9 +142,9 @@ script = ExtResource("9_h2fj2")
 bullet_point = NodePath("../../AnimatedSprite2D/BulletPoint")
 metadata/_custom_type_script = "uid://begc23ar57pqc"
 
-[node name="HealthComponent" type="Node" parent="." node_paths=PackedStringArray("hitbox")]
+[node name="HealthComponent" type="Node" parent="." node_paths=PackedStringArray("hurtbox")]
 script = ExtResource("8_dhtqb")
-hitbox = NodePath("../Hitbox")
+hurtbox = NodePath("../Hurtbox")
 metadata/_custom_type_script = "uid://d01t5w5uthwj0"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://b10kg6kb856xr" path="res://Enemies/BaseEnemy/BaseEnemy.gd" id="1_tsaag"]
 [ext_resource type="Texture2D" uid="uid://dbaymly2fej4i" path="res://Enemies/Frog/frog-idle.png" id="1_x3351"]
 [ext_resource type="Script" uid="uid://d01t5w5uthwj0" path="res://Components/HealthComponent.gd" id="4_y3bwy"]
-[ext_resource type="Script" uid="uid://dlaub0dqcbxl7" path="res://Components/Hurtbox.gd" id="5_bwicp"]
-[ext_resource type="Script" uid="uid://dssf1kthw6mtj" path="res://Components/Hitbox.gd" id="6_tsaag"]
+[ext_resource type="Script" uid="uid://dlaub0dqcbxl7" path="res://Components/Hitbox.gd" id="5_bwicp"]
+[ext_resource type="Script" uid="uid://dssf1kthw6mtj" path="res://Components/Hurtbox.gd" id="6_tsaag"]
 [ext_resource type="Resource" uid="uid://dun7objvqcnhx" path="res://Components/Attacks/smallhit.tres" id="6_wpxah"]
 [ext_resource type="Script" uid="uid://dxiprnvw4yo2s" path="res://Components/State Machine.gd" id="7_tsaag"]
 [ext_resource type="Script" uid="uid://dusvmh1k02q18" path="res://Components/States/Enemy/EnemyHop.gd" id="8_tsaag"]
@@ -99,19 +99,19 @@ autostart = true
 script = ExtResource("4_y3bwy")
 metadata/_custom_type_script = "uid://d01t5w5uthwj0"
 
-[node name="Hurtbox" type="Area2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="."]
 script = ExtResource("5_bwicp")
 attack = ExtResource("6_wpxah")
 metadata/_custom_type_script = "uid://dlaub0dqcbxl7"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_bwicp")
 
-[node name="Hitbox" type="Area2D" parent="."]
+[node name="Hurtbox" type="Area2D" parent="."]
 script = ExtResource("6_tsaag")
 metadata/_custom_type_script = "uid://dssf1kthw6mtj"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_tsaag")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
