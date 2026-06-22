@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_rsaut")
 attack_damage = 10.0
-knockback_force = 0.0
+knockback_force = 120.0
 attack_position = Vector2(0, 0)
 team = "player"
 metadata/_custom_type_script = "uid://c6eti274sbw7e"

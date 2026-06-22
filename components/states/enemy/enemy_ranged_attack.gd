@@ -30,4 +30,3 @@ func Exit():
 
 func on_animation_finished():
 	Transitioned.emit(self, "EnemyIdle")
-	pass

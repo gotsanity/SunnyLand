@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_iei6l")
 attack_damage = 1.0
-knockback_force = 0.0
+knockback_force = 150.0
 attack_position = Vector2(0, 0)
 team = "enemy"
 metadata/_custom_type_script = "uid://c6eti274sbw7e"

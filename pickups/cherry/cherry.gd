@@ -1,18 +1,10 @@
-extends Area2D
+extends Pickup
 
 
-
-func spawn_feedback():
-	var scene_to_spawn = preload("res://pickups/feedback/feedback.tscn")
-	var new_scene_instance = scene_to_spawn.instantiate()
-	get_tree().current_scene.add_child(new_scene_instance)  # Add the instance as a child of the current scene
-	new_scene_instance.global_position = global_position
-
-
-func _on_body_entered(_body):
+func _on_body_entered(body):
 	spawn_feedback()
-	
-	if _body is Player:
-		_body.health_component.heal(1)
-	
+
+	if body is Player:
+		body.health_component.heal(1)
+
 	queue_free()

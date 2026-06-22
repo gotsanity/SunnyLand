@@ -52,6 +52,7 @@ func _on_area_entered(area):
 				area.on_hit()
 				hit_react.emit(area.attack)
 				area.owner.bounce_after_stomp()
+				_apply_knockback(area)
 		else:
 			# Mirror of the stomp rule: if WE are the player and we're above the
 			# attacker, we're stomping it — don't take contact damage this frame.
@@ -60,6 +61,14 @@ func _on_area_entered(area):
 			damage(area.attack)
 			area.on_hit()
 			hit_react.emit(area.attack)
+			_apply_knockback(area)
+
+
+# Shove our owner away from the attacker, scaled by the attack's knockback_force.
+# Safe for any owner: does nothing if the owner has no apply_knockback method.
+func _apply_knockback(hit_area):
+	if owner.has_method("apply_knockback"):
+		owner.apply_knockback(hit_area.owner.global_position, hit_area.attack.knockback_force)
 
 
 # Re-run the contact check against any Hitbox still overlapping us. Called by

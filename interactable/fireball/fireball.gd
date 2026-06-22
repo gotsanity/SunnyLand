@@ -35,8 +35,12 @@ func on_timeout():
 func _on_area_2d_body_entered(body):
 	if body is Player and attack.team == "enemy":
 		body.health_component.damage(attack)
+		if body.has_method("apply_knockback"):
+			body.apply_knockback(global_position, attack.knockback_force)
 		explode()
-	
+
 	if body is BaseEnemy and attack.team == "player":
 		body.health_component.damage(attack)
+		if body.has_method("apply_knockback"):
+			body.apply_knockback(global_position, attack.knockback_force)
 		explode()

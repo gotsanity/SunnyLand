@@ -28,7 +28,6 @@ func reset():
 func damage(attack: Attack):
 	if is_invulnerable:
 		return
-	print(get_parent().name + " has been attacked for: " + str(attack.attack_damage).pad_decimals(2))
 	health = clampf(health - attack.attack_damage, 0, max_health)
 	health_changed.emit(health)
 	if hurtbox:

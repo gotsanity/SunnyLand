@@ -12,6 +12,11 @@ class_name Player
 var coyote_timer := 0.0
 var jump_buffer_timer := 0.0
 
+# Knockback: a hit shoves the player for a brief moment, overriding input.
+@export var KNOCKBACK_DURATION = 0.2
+var knockback_timer := 0.0
+var knockback_velocity := Vector2.ZERO
+
 # Dash ability (unlocked by the Strawberry pickup via unlock_dash()).
 signal dash_unlocked                 # fired when the dash is granted (HUD listens)
 @export var DASH_SPEED = 260.0       # how fast the dash moves
@@ -98,7 +103,16 @@ func _physics_process(delta):
 	# Add the gravity.
 	if was_in_air:
 		velocity.y += gravity * delta
-	
+
+	# Knockback: while the timer is active a hit is shoving us, so skip the
+	# normal movement controls and just ride it out (gravity still applies).
+	if knockback_timer > 0.0 and not dying:
+		knockback_timer -= delta
+		velocity.x = knockback_velocity.x
+		move_and_slide()
+		update_animations(0.0)
+		return
+
 	# If dying, bounce the player into the air
 	if dying and is_on_floor():
 		velocity.y = JUMP_VELOCITY
@@ -163,7 +177,6 @@ func shoot():
 	shot.target = mouse_position
 	shot.explosion = bullet_impact
 	get_tree().root.add_child(shot)
-	pass
 
 
 # Signal handler that triggers on death
@@ -173,7 +186,6 @@ func on_death():
 
 # Event that triggers at the end of the death animation.
 func die():
-	print("Player has died")
 	dying = false
 	was_in_air = false
 	respawn()
@@ -182,6 +194,16 @@ func die():
 # This function is called after landing on an enemy to shoot the player into the air
 func bounce_after_stomp():
 	velocity.y = BOUNCE_HEIGHT
+
+
+# Shove the player away from from_position. Called when a hit lands; force is the
+# attack's knockback_force (0 means no shove).
+func apply_knockback(from_position: Vector2, force: float):
+	if dying or is_dead or force <= 0.0:
+		return
+	knockback_velocity = (global_position - from_position).normalized() * force
+	velocity = knockback_velocity
+	knockback_timer = KNOCKBACK_DURATION
 
 
 # Called by the Strawberry pickup to grant the dash and tell the HUD.

@@ -26,6 +26,13 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @export var enable_flying = false
 
+# Knockback: a short shove applied when something hits this enemy. While the
+# timer is active the StateMachine is paused so the AI doesn't instantly steer
+# back, and we drive the body ourselves.
+@export var KNOCKBACK_DURATION = 0.2
+var knockback_timer := 0.0
+var knockback_velocity := Vector2.ZERO
+
 func _ready():
 	collision_layer = 0
 	set_collision_layer_value(3, true)   # dedicated "enemy" layer — the player's mask (world only) ignores it
@@ -56,8 +63,34 @@ func _physics_process(delta):
 	# Add the gravity.
 	if not enable_flying:
 		velocity.y += gravity * delta
-	
+
+	# While being knocked back the StateMachine is paused, so carry the shove
+	# ourselves and resume the AI once the timer runs out.
+	if knockback_timer > 0.0:
+		knockback_timer -= delta
+		if enable_flying:
+			velocity = knockback_velocity
+		else:
+			velocity.x = knockback_velocity.x
+		move_and_slide()
+		if knockback_timer <= 0.0 and state_machine:
+			state_machine.set_physics_process(true)
+		update_animations()
+		return
+
 	update_animations()
+
+
+# Shove this enemy away from from_position. Called when a hit lands; force is the
+# attack's knockback_force (0 means no shove).
+func apply_knockback(from_position: Vector2, force: float):
+	if is_dead or force <= 0.0:
+		return
+	knockback_velocity = (global_position - from_position).normalized() * force
+	velocity = knockback_velocity
+	knockback_timer = KNOCKBACK_DURATION
+	if state_machine:
+		state_machine.set_physics_process(false)
 
 
 func update_animations():
@@ -77,6 +110,5 @@ func on_death():
 	for child in get_children():
 		if child is Hitbox or child is Hurtbox:
 			child.queue_free()
-		pass
 	await get_tree().create_timer(0.5).timeout
 	queue_free()
