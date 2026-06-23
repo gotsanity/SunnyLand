@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://dyubd4g32ejvv"]
+
+[ext_resource type="Script" uid="uid://co177w1l2awj2" path="res://interactable/spike_trap.gd" id="1_60ais"]
+[ext_resource type="Resource" uid="uid://dun7objvqcnhx" path="res://components/attacks/smallhit.tres" id="2_mb2mi"]
+[ext_resource type="Texture2D" uid="uid://dqiqu6etlb1th" path="res://Assets/Pixel Adventure 1/Free/Traps/Saw/On (38x38).png" id="3_60ais"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vqqay"]
+size = Vector2(38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mb2mi"]
+atlas = ExtResource("3_60ais")
+region = Rect2(0, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f12t8"]
+atlas = ExtResource("3_60ais")
+region = Rect2(38, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_prwjj"]
+atlas = ExtResource("3_60ais")
+region = Rect2(76, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iw1fy"]
+atlas = ExtResource("3_60ais")
+region = Rect2(114, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bnwc7"]
+atlas = ExtResource("3_60ais")
+region = Rect2(152, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mx1n3"]
+atlas = ExtResource("3_60ais")
+region = Rect2(190, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eqvb8"]
+atlas = ExtResource("3_60ais")
+region = Rect2(228, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqnno"]
+atlas = ExtResource("3_60ais")
+region = Rect2(266, 0, 38, 38)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x7nfd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mb2mi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f12t8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_prwjj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iw1fy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bnwc7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mx1n3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eqvb8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqnno")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 30.0
+}]
+
+[node name="Saw" type="Area2D" unique_id=1411063496]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_60ais")
+attack = ExtResource("2_mb2mi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=530263800]
+shape = SubResource("RectangleShape2D_vqqay")
+debug_color = Color(1, 0.0110432, 0.0245465, 0.42)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1962281119]
+sprite_frames = SubResource("SpriteFrames_x7nfd")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.7499092
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

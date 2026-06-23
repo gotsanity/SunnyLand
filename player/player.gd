@@ -6,6 +6,7 @@ class_name Player
 @export var JUMP_VELOCITY = -300.0
 @export var BOUNCE_HEIGHT = -400.0
 
+
 # Jump feel: small grace windows that make platforming forgiving.
 @export var COYOTE_TIME = 0.1       # how long after leaving a ledge you can still jump
 @export var JUMP_BUFFER_TIME = 0.1  # how early a jump press is remembered before landing

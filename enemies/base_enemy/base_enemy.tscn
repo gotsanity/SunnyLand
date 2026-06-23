@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dre87iofqpfrk"]
+[gd_scene format=3 uid="uid://dre87iofqpfrk"]
 
 [ext_resource type="Script" uid="uid://b10kg6kb856xr" path="res://enemies/base_enemy/base_enemy.gd" id="1_d8e6p"]
 [ext_resource type="Texture2D" uid="uid://b3qsnu86qjb8v" path="res://enemies/opossum/opossum.png" id="2_w4l4t"]
@@ -52,7 +52,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_kweho")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 12.0
 }]
@@ -66,43 +66,43 @@ size = Vector2(28, 18)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6hvtx"]
 size = Vector2(24, 3)
 
-[node name="BaseEnemy" type="CharacterBody2D"]
+[node name="BaseEnemy" type="CharacterBody2D" unique_id=439793878]
 collision_layer = 0
 script = ExtResource("1_d8e6p")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=463505945]
 sprite_frames = SubResource("SpriteFrames_fblae")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=800657778]
 position = Vector2(-3, 4)
 shape = SubResource("RectangleShape2D_ec1x8")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=1393091677]
 wait_time = 2.0
 autostart = true
 
-[node name="Hitbox" type="Area2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1086249973]
 script = ExtResource("3_q33g0")
 attack = ExtResource("4_q33g0")
 metadata/_custom_type_script = "uid://dlaub0dqcbxl7"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=427985781]
 position = Vector2(-3, 5)
 shape = SubResource("RectangleShape2D_fdb6i")
 
-[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("sprite")]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=2146369490 node_paths=PackedStringArray("sprite")]
 position = Vector2(0, 4)
 script = ExtResource("4_akc86")
 sprite = NodePath("../AnimatedSprite2D")
 hit_react_length = 0.2
 metadata/_custom_type_script = "uid://dssf1kthw6mtj"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1467687195]
 position = Vector2(-3, -9.5)
 shape = SubResource("RectangleShape2D_6hvtx")
 
-[node name="HealthComponent" type="Node" parent="."]
+[node name="HealthComponent" type="Node" parent="." unique_id=1101258204]
 script = ExtResource("5_h7ov6")
 metadata/_custom_type_script = "uid://d01t5w5uthwj0"
