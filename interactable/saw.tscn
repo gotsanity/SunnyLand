@@ -4,8 +4,54 @@
 [ext_resource type="Resource" uid="uid://dun7objvqcnhx" path="res://components/attacks/smallhit.tres" id="2_mb2mi"]
 [ext_resource type="Texture2D" uid="uid://dqiqu6etlb1th" path="res://Assets/Pixel Adventure 1/Free/Traps/Saw/On (38x38).png" id="3_60ais"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vqqay"]
-size = Vector2(38, 38)
+[sub_resource type="Animation" id="Animation_60ais"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatableBody2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_mb2mi"]
+resource_name = "circle"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatableBody2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.4666667, 5, 7.5, 10),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(50, -50), Vector2(100, 0), Vector2(50, 50), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatableBody2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f12t8"]
+_data = {
+&"RESET": SubResource("Animation_60ais"),
+&"circle": SubResource("Animation_mb2mi")
+}
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mb2mi"]
 atlas = ExtResource("3_60ais")
@@ -71,20 +117,33 @@ animations = [{
 "speed": 30.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vqqay"]
+size = Vector2(38, 38)
+
 [node name="Saw" type="Area2D" unique_id=1411063496]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_60ais")
 attack = ExtResource("2_mb2mi")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=530263800]
-shape = SubResource("RectangleShape2D_vqqay")
-debug_color = Color(1, 0.0110432, 0.0245465, 0.42)
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=938515043]
+libraries/ = SubResource("AnimationLibrary_f12t8")
+autoplay = &"circle"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1962281119]
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="." unique_id=807760875]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AnimatableBody2D" unique_id=1962281119]
 sprite_frames = SubResource("SpriteFrames_x7nfd")
 animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.7499092
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D" unique_id=346634866]
+shape = SubResource("RectangleShape2D_vqqay")
+debug_color = Color(1, 0.0110432, 0.0245465, 0.42)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=530263800]
+shape = SubResource("RectangleShape2D_vqqay")
+debug_color = Color(1, 0.0110432, 0.0245465, 0.42)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

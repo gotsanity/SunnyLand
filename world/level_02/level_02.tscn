@@ -25,7 +25,7 @@ position = Vector2(147, 83)
 position = Vector2(58, 139)
 
 [node name="CollisionShape2D" parent="Killbox" index="0"]
-position = Vector2(10, 107)
+position = Vector2(10, 191)
 shape = SubResource("WorldBoundaryShape2D_0k3b3")
 
 [node name="SpikeTrap" parent="." unique_id=1994316641 instance=ExtResource("4_m1y5n")]

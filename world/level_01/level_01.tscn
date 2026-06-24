@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://bttsjij0ss8q0" path="res://enemies/frog/frog.tscn" id="20_m4sss"]
 [ext_resource type="PackedScene" uid="uid://hvw2tjk7rxpp" path="res://enemies/opossum/opossum.tscn" id="21_7xhy1"]
 [ext_resource type="PackedScene" uid="uid://cewt171s35pmt" path="res://pickups/gem/gem.tscn" id="22_anca2"]
+[ext_resource type="PackedScene" uid="uid://caf3p2drylg3o" path="res://interactable/moving_platform.tscn" id="22_mvnxl"]
 [ext_resource type="PackedScene" uid="uid://c6diiunn70psp" path="res://pickups/cherry/cherry.tscn" id="23_gnsqw"]
 [ext_resource type="PackedScene" uid="uid://bapvy71043313" path="res://player/player.tscn" id="24_4y1t5"]
 [ext_resource type="AudioStream" uid="uid://dinseoiw5ecvq" path="res://Music/walkyandtalky.ogg" id="25_gkp76"]
@@ -32,6 +33,8 @@
 [ext_resource type="PackedScene" uid="uid://6273s2of4qv8" path="res://interactable/spike_trap.tscn" id="30_5tqo4"]
 [ext_resource type="PackedScene" uid="uid://bht8hg532wbsk" path="res://interactable/jumpad.tscn" id="31_mvuwq"]
 [ext_resource type="PackedScene" uid="uid://dyubd4g32ejvv" path="res://interactable/saw.tscn" id="32_4410e"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_mvnxl"]
 
 [node name="Level01" type="Node2D" unique_id=789275174]
 
@@ -197,6 +200,9 @@ position = Vector2(2697, 211)
 [node name="Oposum" parent="Enemies" unique_id=1218955129 instance=ExtResource("21_7xhy1")]
 position = Vector2(548, 164)
 
+[node name="MovingPlatform" parent="Enemies" unique_id=730667559 instance=ExtResource("22_mvnxl")]
+position = Vector2(144, 174)
+
 [node name="Pickups" type="Node2D" parent="." unique_id=642961034]
 
 [node name="Gem" parent="Pickups" unique_id=1244885413 instance=ExtResource("22_anca2")]
@@ -278,14 +284,15 @@ stream = ExtResource("25_gkp76")
 position = Vector2(355, 195)
 
 [node name="Killbox" parent="." unique_id=1969161884 instance=ExtResource("27_6d4cv")]
-position = Vector2(291, 266)
+position = Vector2(334, 351)
 
 [node name="CollisionShape2D" parent="Killbox" index="0"]
 position = Vector2(3050, -28)
+shape = SubResource("WorldBoundaryShape2D_mvnxl")
 
 [node name="Goal" parent="." unique_id=1608258664 instance=ExtResource("28_0gxen")]
 position = Vector2(3521, 164)
-next_scene = "res://world/level_02/level_02.tscn"
+next_scene = "res://world/level_05/level_05.tscn"
 
 [node name="CollisionShape2D" parent="Goal" index="0"]
 position = Vector2(40.5, -54)
@@ -295,9 +302,13 @@ position = Vector2(24, 139)
 
 [node name="JumpPad" parent="." unique_id=761559505 instance=ExtResource("31_mvuwq")]
 position = Vector2(217, 194)
+launch_speed = -1000
 
 [node name="Saw" parent="." unique_id=1411063496 instance=ExtResource("32_4410e")]
 position = Vector2(1399, 141)
+
+[node name="JumpPad2" parent="." unique_id=324779029 instance=ExtResource("31_mvuwq")]
+position = Vector2(66, 128)
 
 [editable path="Enemies/Eagle"]
 [editable path="Killbox"]

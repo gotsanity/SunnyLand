@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://ch0kispxdut6"]
+
+[ext_resource type="PackedScene" uid="uid://bcsnyw4t6pnw2" path="res://world/parallax_background.tscn" id="1_5k5qr"]
+[ext_resource type="TileSet" uid="uid://dgp60fa4r1vdi" path="res://world/world_tileset.tres" id="2_iwmtd"]
+[ext_resource type="PackedScene" uid="uid://bapvy71043313" path="res://player/player.tscn" id="3_c4owq"]
+
+[node name="Level05" type="Node2D" unique_id=948822802]
+
+[node name="ParallaxBackground" parent="." unique_id=726329182 instance=ExtResource("1_5k5qr")]
+
+[node name="TileMap" type="TileMap" parent="." unique_id=984066233]
+tile_set = ExtResource("2_iwmtd")
+format = 2
+layer_0/tile_data = PackedInt32Array(196609, 65536, 20, 196610, 65536, 20, 196611, 65536, 20, 196612, 65536, 20, 196613, 65536, 20, 196614, 65536, 20, 196615, 65536, 20, 196616, 65536, 20, 196617, 65536, 20, 196618, 65536, 20, 196619, 65536, 20, 196620, 65536, 20, 196621, 65536, 20, 196622, 65536, 20, 196623, 65536, 20, 196624, 65536, 20, 196625, 65536, 20, 196626, 65536, 20, 196627, 65536, 20, 196628, 65536, 20, 196629, 65536, 20)
+
+[node name="Player" parent="." unique_id=136333293 instance=ExtResource("3_c4owq")]
+position = Vector2(183, 26)

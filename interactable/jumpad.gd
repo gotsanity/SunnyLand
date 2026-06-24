@@ -2,6 +2,8 @@ extends Area2D
 
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
+@export var launch_speed = -500
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	print("jump pad is online")
@@ -27,7 +29,7 @@ func _on_body_entered(body: Node2D) -> void:
 		$AnimatedSprite2D.play("launch")
 		
 		print("its a player, throw him")
-		body.velocity.y = -500
+		body.velocity.y = launch_speed
 	
 	
 	
