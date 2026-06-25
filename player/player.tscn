@@ -174,7 +174,7 @@ shape = SubResource("RectangleShape2D_ok28f")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2108752983]
 position = Vector2(0, -6)
 sprite_frames = SubResource("SpriteFrames_f4wda")
-animation = &"idle"
+animation = &"death"
 autoplay = "idle"
 
 [node name="Hurtbox" parent="." unique_id=440912628 node_paths=PackedStringArray("sprite") instance=ExtResource("3_gwnis")]
@@ -200,6 +200,7 @@ metadata/_custom_type_script = "uid://dlaub0dqcbxl7"
 shape = SubResource("RectangleShape2D_fhl08")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1991444733]
+position = Vector2(0, -55)
 limit_smoothed = true
 
 [node name="BulletPoint" type="Node2D" parent="." unique_id=235898327]

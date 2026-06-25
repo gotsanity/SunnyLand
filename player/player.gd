@@ -51,7 +51,7 @@ var dying := false
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-@onready var health_component = $HealthComponent
+@onready var health_component : HealthComponent = $HealthComponent
 
 # This function fires once when the player becomes ready
 func _ready():

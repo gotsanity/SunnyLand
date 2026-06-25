@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bcsnyw4t6pnw2" path="res://world/parallax_background.tscn" id="1_5k5qr"]
 [ext_resource type="TileSet" uid="uid://dgp60fa4r1vdi" path="res://world/world_tileset.tres" id="2_iwmtd"]
 [ext_resource type="PackedScene" uid="uid://bapvy71043313" path="res://player/player.tscn" id="3_c4owq"]
+[ext_resource type="PackedScene" uid="uid://d1cp725miteut" path="res://interactable/spike_drop.tscn" id="4_iwmtd"]
 
 [node name="Level05" type="Node2D" unique_id=948822802]
 
@@ -11,7 +12,22 @@
 [node name="TileMap" type="TileMap" parent="." unique_id=984066233]
 tile_set = ExtResource("2_iwmtd")
 format = 2
-layer_0/tile_data = PackedInt32Array(196609, 65536, 20, 196610, 65536, 20, 196611, 65536, 20, 196612, 65536, 20, 196613, 65536, 20, 196614, 65536, 20, 196615, 65536, 20, 196616, 65536, 20, 196617, 65536, 20, 196618, 65536, 20, 196619, 65536, 20, 196620, 65536, 20, 196621, 65536, 20, 196622, 65536, 20, 196623, 65536, 20, 196624, 65536, 20, 196625, 65536, 20, 196626, 65536, 20, 196627, 65536, 20, 196628, 65536, 20, 196629, 65536, 20)
+layer_0/tile_data = PackedInt32Array(786432, 196608, 1, 786433, 196608, 1, 786434, 196608, 1, 786435, 196608, 1, 786436, 196608, 1, 786437, 196608, 1, 786438, 196608, 1, 786439, 196608, 1, 786440, 196608, 1, 786441, 196608, 1, 786442, 196608, 1, 786443, 196608, 1, 786444, 196608, 1, 786445, 196608, 1, 786446, 196608, 1, 786447, 196608, 1, 786448, 196608, 1, 786449, 196608, 1, 786450, 196608, 1, 786451, 196608, 1, 786452, 196608, 1, 786453, 196608, 1, 786454, 196608, 1)
 
 [node name="Player" parent="." unique_id=136333293 instance=ExtResource("3_c4owq")]
-position = Vector2(183, 26)
+position = Vector2(178, 164)
+
+[node name="SpikeDrop" parent="." unique_id=239261931 instance=ExtResource("4_iwmtd")]
+position = Vector2(271, 54)
+
+[node name="Area2D" parent="SpikeDrop/AnimatableBody2D" parent_id_path=PackedInt32Array(239261931, 412518825) index="0" unique_id=84236975]
+collision_mask = 3
+
+[node name="CollisionShape2D" parent="SpikeDrop/AnimatableBody2D/Area2D" index="0" unique_id=510791900]
+position = Vector2(0, -21)
+
+[node name="RayCast2D" parent="SpikeDrop/AnimatableBody2D" parent_id_path=PackedInt32Array(239261931, 412518825) index="2" unique_id=1097885430]
+target_position = Vector2(0, 129)
+collision_mask = 1
+
+[editable path="SpikeDrop"]
